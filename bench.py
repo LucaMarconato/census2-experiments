@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Run the prototype benchmark matrix on each store set. Appends to results/bench.jsonl.
+"""Run the prototype benchmark matrix (census2-sdk/tools/bench) on each store set.
+
+Per set: build its catalog (build_catalog.py, results/catalogs/<set>/), load the backend env,
+run bench.matrix: each shape x workers x repeat in a new process (no cache carries over).
+Shapes: single (get_anndata of one dataset), cell_type (get_anndata of the cell type in ~15% of
+datasets), open (open every store), corpus_obs (read all obs), corpus_x (read all X, keep nothing).
+Each record: catalog and query seconds, stores, cells, requests, MB read, peak RSS, status.
+Appends to results/bench.jsonl; table.py makes the table of medians.
 
 A set is <backend>-<stores>: backend local (data/zarr), emu (AWS Emulator, emulator/start.sh)
 or floci (floci/start.sh); stores all, small (subsets/emu-small.jsonl) or 4g (subsets/4g.jsonl).
