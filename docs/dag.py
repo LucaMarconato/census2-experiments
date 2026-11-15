@@ -16,7 +16,7 @@ for env in envs:
         for t in feature["tasks"]:
             tasks.setdefault(t["name"], (t, env["environment"]))
 
-linked = {t for t, _ in tasks.values() for d in t.get("depends_on") or [] for t in (t["name"], d["task_name"])}
+linked = {n for t, _ in tasks.values() for d in t.get("depends_on") or [] for n in (t["name"], d["task_name"])}
 dot = ['digraph tasks {', 'rankdir=LR; bgcolor="#FFFFFF"; nodesep=0.3; ranksep=0.5;',
        'node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=12, color="#4A5568", fillcolor="#FFFFFF"];',
        'edge [color="#718096", arrowsize=0.7];']
