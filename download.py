@@ -14,7 +14,7 @@ from pathlib import Path
 from config import H5AD
 
 HERE = Path(__file__).parent
-MANIFESTS = sorted((HERE / "manifests").glob("*.jsonl"), key=lambda m: "harness" not in m.name)
+MANIFESTS = sorted((HERE / "ext/cellxgene-census2-prototype/bulk-ingest-nf/manifests").glob("*.jsonl"), key=lambda m: "harness" not in m.name)
 
 
 def fetch(rec: dict, dest: Path, tries: int = 5) -> str:

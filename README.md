@@ -7,7 +7,7 @@ Claude (Anthropic) was used to run the benchmarks and present the results.
 
 ## Data
 
-103 human datasets of Census 1 LTS `2025-11-08` (147 GiB h5ad, 13.3M cells); manifests from the prototype's `bulk-ingest-nf/manifests/`.
+103 human datasets of Census 1 LTS `2025-11-08` (147 GiB h5ad, 13.3M cells); manifests from the prototype's `bulk-ingest-nf/manifests/` (`tools/census1-sample.py`).
 
 ```bash
 git clone --recurse-submodules <this repo>   # prototype and spike, pinned as submodules
