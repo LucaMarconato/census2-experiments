@@ -42,7 +42,10 @@ def ids(manifest: Path) -> set[str]:
 
 
 def catalog(name: str, env: dict[str, str]) -> Path:
-    """Build the catalog of a store set as results/catalogs/<name>/catalog-<N>.parquet."""
+    """Build the catalog of a store set as results/catalogs/<name>/catalog-<N>.parquet.
+
+    Cached: reused if present. local-all is rebuilt (build_catalog.py scans every store in
+    data/zarr) when N no longer equals the number of stores there, e.g. after more conversions."""
     d = CATALOGS / name
     d.mkdir(parents=True, exist_ok=True)
     if found := sorted(d.glob("catalog-*.parquet")):

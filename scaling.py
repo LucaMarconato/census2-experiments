@@ -18,7 +18,7 @@ import sys
 
 import pandas as pd
 
-from bench import CATALOGS, HERE, TOOLS, backend_env, catalog
+from bench import HERE, TOOLS, backend_env, catalog
 
 # the prototype's bench/catalogs.py, by path: this repo's bench.py takes the name `bench`
 _spec = importlib.util.spec_from_file_location("proto_catalogs", TOOLS / "bench/catalogs.py")
@@ -41,10 +41,7 @@ def main() -> int:
     a = p.parse_args()
     sizes = [int(s) for s in a.sizes.split(",")]
 
-    # Real stores, in the order of the local-all catalog; rebuild it if stores were added.
-    for f in (CATALOGS / "local-all").glob("catalog-*.parquet"):
-        if int(f.stem.split("-")[1]) != len(list((HERE / "data/zarr").glob("*.zarr"))):
-            f.unlink()
+    # Real stores, in the order of the local-all catalog (bench.catalog rebuilds it when data/zarr changed).
     src = pd.read_parquet(catalog("local-all", dict(os.environ)))
     n_copies = max(0, -(-max(sizes) // len(src)) - 1)
     copies = HERE / "data/copies"
