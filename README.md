@@ -18,9 +18,16 @@ Of the prototype's Nextflow ingest pipeline only `stage-refdata.py` is used, for
 
 `prep/` download, subset, convert · `floci/` local S3 in Docker · `benchmarks/` the benchmark drivers · `spike/` the Iceberg/DuckDB spike · `analysis/` tables, plots, flamegraphs · `config.py` paths per profile · `pixi.toml` the task graph · `docs/` its drawing · `ext/` the prototype and the spike, pinned.
 
-## Run
+## How to use this repo
 
-Needs [pixi](https://pixi.sh) and Docker (for floci). Every step is a pixi task; `pixi run all` runs the graph (`pixi task list` shows each task).
+This is a baseline for benchmarking data access patterns locally: change a layout, a reader or a query, re-run, and compare on the same data and machine. The authoritative benchmarks will be the ones run against the real data, once Census 2 data is available.
+
+1. Run the tiny profile to check the setup.
+2. Run the full data once, to have your own baseline in `results/` (the committed one is from the machine below).
+3. Change what you want to test, re-run only its task (`pixi run scaling`, `pixi run latency`, ...; `pixi task list` shows them) and diff the tables: `results/bench.md`, `results/scaling/bench.md`, `results/icechunk/bench.md`, `results/spike/bench.md`.
+4. A new benchmark is a script in `benchmarks/` plus a task in `pixi.toml` (add it to `all`).
+
+Needs [pixi](https://pixi.sh) and Docker (for floci). Every step is a pixi task; `pixi run all` runs the graph.
 
 ```bash
 git clone --recurse-submodules <this repo>   # prototype and spike, pinned as submodules
