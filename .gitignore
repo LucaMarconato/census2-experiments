@@ -3,7 +3,6 @@
 *.part
 __pycache__/
 .DS_Store
-ext/
 .venv/
 .claude/
 /results/catalogs/

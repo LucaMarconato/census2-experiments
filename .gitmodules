@@ -1,0 +1,7 @@
+[submodule "ext/cellxgene-census2-prototype"]
+	path = ext/cellxgene-census2-prototype
+	url = https://github.com/chanzuckerberg/cellxgene-census2-prototype.git
+[submodule "ext/spike-obs"]
+	path = ext/spike-obs
+	url = https://github.com/chanzuckerberg/cellxgene-census2-prototype.git
+	branch = spike/obs-duckdb

@@ -10,9 +10,10 @@ Claude (Anthropic) was used to run the benchmarks and present the results.
 103 human datasets of Census 1 LTS `2025-11-08` (147 GiB h5ad, 13.3M cells); manifests from the prototype's `bulk-ingest-nf/manifests/`.
 
 ```bash
-cp config.example.toml config.toml   # set local paths
-./setup.sh                           # data/ link, prototype + spike clones, envs, gene refs
-uv run python download.py            # to h5ad; --max-gib 50 for a subset. Resumable
+git clone --recurse-submodules <this repo>   # prototype and spike, pinned as submodules
+cp config.example.toml config.toml           # set local paths
+uv run python download.py                    # to h5ad; --max-gib 50 for a subset. Resumable
+uv run python ext/cellxgene-census2-prototype/bulk-ingest-nf/tools/stage-refdata.py data/refdata/
 ```
 
 ## Benchmarks
