@@ -103,8 +103,8 @@ cmd = "sh benchmarks/latency_bench.sh {% if profile == 'tiny' %}10{% else %}10 5
 description = "py-spy flamegraphs of the X, obs and cell-type reads (asks for sudo: py-spy needs root on macOS)"
 args = [{ arg = "profile", default = "real" }]
 env = { C2E_PROFILE = "{{ profile }}" }
-depends-on = [{ task = "bench", args = ["{{ profile }}"] }]
-cmd = "sh -c 'sudo C2E_PROFILE=$C2E_PROFILE PY=\"$(command -v python)\" sh benchmarks/profile.sh' && sh analysis/render_profiles.sh"
+depends-on = [{ task = "floci", args = ["{{ profile }}"] }]
+cmd = "python benchmarks/bench.py --sets local-all,floci-4GB --catalogs-only && sh -c 'sudo C2E_PROFILE=$C2E_PROFILE PY=\"$(command -v python)\" sh benchmarks/profile.sh' && sh analysis/render_profiles.sh"
 
 [tasks.all]
 description = "Every benchmark (all but profiles, which needs sudo)"

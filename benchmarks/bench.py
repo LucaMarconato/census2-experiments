@@ -81,13 +81,17 @@ def main() -> int:
     p.add_argument("--workers", default="1,8")
     p.add_argument("--repeats", type=int, default=3)
     p.add_argument("--out", type=Path, default=RESULTS / "bench.jsonl")
+    p.add_argument("--catalogs-only", action="store_true", help="build the catalogs, run nothing")
     a = p.parse_args()
 
-    a.out.unlink(missing_ok=True)
+    if not a.catalogs_only:
+        a.out.unlink(missing_ok=True)
     for name in a.sets.split(","):
         env = {**os.environ, **backend_env(name.split("-")[0])}
         env["PYTHONPATH"] = str(TOOLS)
         cat = catalog(name, env)
+        if a.catalogs_only:
+            continue
         size = cat.stem.split("-")[1]
         subprocess.run(
             [sys.executable, "-m", "bench.matrix", "--catalogs", cat.parent, "--sizes", size,
