@@ -3,6 +3,8 @@
 A design spike built around [cellxgene-census2-prototype](https://github.com/chanzuckerberg/cellxgene-census2-prototype) (`e54290c`; spike branch `spike/obs-duckdb` @ `8a174de`).
 Not intended for production: it explores how Census 2 (one Zarr store per dataset, Parquet catalog) performs against local disk and a local S3 emulator, with more stores, under added latency, and against a parent Zarr store, Icechunk, Iceberg and DuckDB, to guide development ideas.
 
+**This does not substitute the real benchmarks.** It is a baseline for benchmarking data access patterns locally: change a layout, a reader or a query, re-run, and compare on the same data and machine. The authoritative benchmarks will be the ones run against the real data, once Census 2 data is available.
+
 Claude (Anthropic) was used to run the benchmarks and present the results.
 
 ## Overview
@@ -19,8 +21,6 @@ Of the prototype's Nextflow ingest pipeline only `stage-refdata.py` is used, for
 `prep/` download, subset, convert · `floci/` local S3 in Docker · `benchmarks/` the benchmark drivers · `spike/` the Iceberg/DuckDB spike · `analysis/` tables, plots, flamegraphs · `config.py` paths per profile · `pixi.toml` the task graph · `docs/` its drawing · `ext/` the prototype and the spike, pinned.
 
 ## How to use this repo
-
-This is a baseline for benchmarking data access patterns locally: change a layout, a reader or a query, re-run, and compare on the same data and machine. The authoritative benchmarks will be the ones run against the real data, once Census 2 data is available.
 
 1. Run the tiny profile to check the setup.
 2. Run the full data once, to have your own baseline in `results/` (the committed one is from the machine below).
