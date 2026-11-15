@@ -11,7 +11,7 @@ Claude (Anthropic) was used to run the benchmarks and present the results.
 
 ```bash
 cp config.example.toml config.toml   # set local paths
-python3 download.py                  # to h5ad; --max-gib 50 for a subset. Resumable
+uv run python download.py            # to h5ad; --max-gib 50 for a subset. Resumable
 ```
 
 ## Benchmarks
