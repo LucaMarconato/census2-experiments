@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+"""Run the prototype benchmark matrix on each store set. Appends to results/bench.jsonl.
+
+A set is <backend>-<stores>: backend local (data/zarr), emu (AWS Emulator, emulator/start.sh)
+or floci (floci/start.sh); stores all, small (subsets/emu-small.jsonl) or 4g (subsets/4g.jsonl).
+On S3 each store has its own bucket, s3://s-<id>/<id>.zarr (the emulator caps a bucket at 64 MiB).
+"""
+
+import argparse
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+import pandas as pd
+
+HERE = Path(__file__).parent.resolve()
+TOOLS = HERE / "ext/cellxgene-census2-prototype/census2-sdk/tools"
+CATALOGS = HERE / "results/catalogs"
+
+
+def backend_env(backend: str) -> dict[str, str]:
+    if backend == "local":
+        return {}
+    out = subprocess.run(
+        ["sh", "-c", f". {HERE}/{'emulator' if backend == 'emu' else backend}/env.sh && env -0"],
+        capture_output=True, text=True, check=True,
+    ).stdout  # fmt: skip
+    return dict(kv.split("=", 1) for kv in out.split("\0") if "=" in kv)
+
+
+def ids(manifest: Path) -> set[str]:
+    return {json.loads(line)["dataset_version_id"] for line in manifest.open() if line.strip()}
+
+
+def catalog(name: str, env: dict[str, str]) -> Path:
+    """Build the catalog of a store set as results/catalogs/<name>/catalog-<N>.parquet."""
+    d = CATALOGS / name
+    d.mkdir(parents=True, exist_ok=True)
+    if found := sorted(d.glob("catalog-*.parquet")):
+        if not (name == "local-all" and int(found[0].stem.split("-")[1]) != len(list((HERE / "data/zarr").glob("*.zarr")))):
+            return found[0]
+        found[0].unlink()  # stores were added: rebuild
+    backend, stores = name.split("-")
+    keep = None if stores == "all" else ids(HERE / f"subsets/{'emu-small' if stores == 'small' else stores}.jsonl")
+    if backend == "local":
+        prefixes = [f"{HERE}/data/zarr/"]
+    else:
+        prefixes = [f"s3://s-{i}/" for i in sorted(keep)]
+    parts = []
+    for k, prefix in enumerate(prefixes):
+        src = d / f"source-{k}.parquet"
+        subprocess.run([sys.executable, TOOLS / "build_catalog.py", prefix, src], check=True, env=env)
+        parts.append(pd.read_parquet(src))
+    rows = pd.concat(parts, ignore_index=True)
+    if keep is not None:  # same rows, same order on every backend
+        rows = rows[rows["dataset_version_id"].isin(keep)]
+        rows = rows.sort_values("dataset_version_id", ignore_index=True)
+    out = d / f"catalog-{len(rows)}.parquet"
+    rows.to_parquet(out)
+    return out
+
+
+def main() -> int:
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--sets", default="local-all,local-small,emu-small,local-4g")
+    p.add_argument("--shapes", default="single,cell_type,open,corpus_obs,corpus_x")
+    p.add_argument("--workers", default="1,8,32")
+    p.add_argument("--repeats", type=int, default=3)
+    p.add_argument("--out", type=Path, default=HERE / "results/bench.jsonl")
+    p.add_argument("--suffix", default="", help="appended to `where`, e.g. -ext for the external disk")
+    a = p.parse_args()
+
+    for name in a.sets.split(","):
+        env = {**os.environ, **backend_env(name.split("-")[0])}
+        env["PYTHONPATH"] = str(TOOLS)
+        cat = catalog(name, env)
+        size = cat.stem.split("-")[1]
+        subprocess.run(
+            [sys.executable, "-m", "bench.matrix", "--catalogs", cat.parent, "--sizes", size,
+             "--shapes", a.shapes, "--workers", a.workers, "--repeats", str(a.repeats),
+             "--where", name + a.suffix, "--out", a.out.resolve()],
+            check=True, env=env, cwd=TOOLS,
+        )  # fmt: skip
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

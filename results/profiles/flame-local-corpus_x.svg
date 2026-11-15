@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="460" font-family="Helvetica,Arial" font-size="18">
+<rect width="1800" height="460" fill="#FBFBF8"/>
+<text x="8" y="26" font-size="22" font-weight="bold">corpus_x: all X of 44 stores (18 GB), local disk, 8 workers. share of busy thread samples, idle waits removed</text>
+<rect x="0.6" y="426" width="1556.4" height="28" fill="hsl(10,75%,62%)"/>
+<text x="3.6" y="447">worker thread 86%</text>
+<rect x="0.9" y="396" width="61.4" height="28" fill="hsl(40,75%,68%)"/>
+<text x="3.9" y="417">Futu…</text>
+<rect x="2.3" y="366" width="57.8" height="28" fill="hsl(40,75%,68%)"/>
+<text x="5.3" y="387">Futu…</text>
+<rect x="2.3" y="336" width="57.2" height="28" fill="hsl(58,75%,62%)"/>
+<text x="5.3" y="357">_cha…</text>
+<rect x="2.3" y="306" width="56.1" height="28" fill="hsl(10,75%,62%)"/>
+<text x="5.3" y="327">Base…</text>
+<rect x="4.3" y="276" width="53.6" height="28" fill="hsl(55,75%,71%)"/>
+<text x="7.3" y="297">Bas…</text>
+<rect x="67.0" y="396" width="1384.4" height="28" fill="hsl(49,75%,65%)"/>
+<text x="70.0" y="417">ZstdCodec._decode_sync (zstd.py) 77%</text>
+<rect x="67.0" y="366" width="1383.4" height="28" fill="hsl(56,75%,72%)"/>
+<text x="70.0" y="387">as_numpy_array_wrapper (cpu.py) 77%</text>
+<rect x="67.5" y="336" width="4.2" height="28" fill="hsl(56,75%,72%)"/>
+<rect x="72.2" y="336" width="3.9" height="28" fill="hsl(33,75%,73%)"/>
+<rect x="72.2" y="306" width="2.8" height="28" fill="hsl(33,75%,73%)"/>
+<rect x="1452.1" y="396" width="98.6" height="28" fill="hsl(43,75%,71%)"/>
+<text x="1455.1" y="417">_get (_l…</text>
+<rect x="1453.4" y="366" width="94.9" height="28" fill="hsl(28,75%,68%)"/>
+<text x="1456.4" y="387">Path.rea…</text>
+<rect x="1453.4" y="336" width="24.1" height="28" fill="hsl(28,75%,68%)"/>
+<rect x="1551.1" y="396" width="4.8" height="28" fill="hsl(26,75%,66%)"/>
+<rect x="1551.1" y="366" width="4.3" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="1551.1" y="336" width="3.4" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="1557.5" y="426" width="242.0" height="28" fill="hsl(24,75%,64%)"/>
+<text x="1560.5" y="447">zarr_io 13%</text>
+<rect x="1560.8" y="396" width="5.3" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="1569.1" y="396" width="5.0" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1569.1" y="366" width="4.4" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1574.7" y="396" width="6.0" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="1577.6" y="366" width="3.1" height="28" fill="hsl(60,75%,64%)"/>
+<rect x="1577.6" y="336" width="3.0" height="28" fill="hsl(67,75%,71%)"/>
+<rect x="1577.6" y="306" width="3.0" height="28" fill="hsl(67,75%,71%)"/>
+<rect x="1581.2" y="396" width="188.9" height="28" fill="hsl(24,75%,64%)"/>
+<text x="1584.2" y="417">concurrent_iter.&lt;…</text>
+<rect x="1581.2" y="366" width="123.0" height="28" fill="hsl(21,75%,73%)"/>
+<text x="1584.2" y="387">BatchedCod…</text>
+<rect x="1582.1" y="336" width="17.2" height="28" fill="hsl(56,75%,72%)"/>
+<rect x="1599.9" y="336" width="102.7" height="28" fill="hsl(21,75%,73%)"/>
+<text x="1602.9" y="357">_async_r…</text>
+<rect x="1599.9" y="306" width="31.3" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="1599.9" y="276" width="30.0" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="1599.9" y="246" width="24.3" height="28" fill="hsl(46,75%,62%)"/>
+<rect x="1599.9" y="216" width="23.0" height="28" fill="hsl(46,75%,62%)"/>
+<rect x="1602.4" y="186" width="16.6" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="1602.4" y="156" width="9.0" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="1602.8" y="126" width="6.6" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1602.8" y="96" width="4.6" height="28" fill="hsl(10,75%,62%)"/>
+<rect x="1611.9" y="156" width="5.2" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1634.0" y="306" width="9.2" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="1634.0" y="276" width="5.0" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="1634.5" y="246" width="3.6" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1639.5" y="276" width="3.0" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1643.8" y="306" width="53.7" height="28" fill="hsl(50,75%,66%)"/>
+<text x="1646.8" y="327">sca…</text>
+<rect x="1643.8" y="276" width="53.0" height="28" fill="hsl(56,75%,72%)"/>
+<text x="1646.8" y="297">NDB…</text>
+<rect x="1704.7" y="366" width="22.0" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1705.1" y="336" width="5.2" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="1705.1" y="306" width="4.8" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="1705.1" y="276" width="4.3" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="1705.1" y="246" width="4.3" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1705.1" y="216" width="4.0" height="28" fill="hsl(10,75%,62%)"/>
+<rect x="1711.1" y="336" width="9.7" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="1711.4" y="306" width="3.6" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="1715.4" y="306" width="3.7" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="1727.1" y="366" width="4.8" height="28" fill="hsl(51,75%,67%)"/>
+<rect x="1727.1" y="336" width="3.5" height="28" fill="hsl(51,75%,67%)"/>
+<rect x="1735.1" y="366" width="7.8" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1735.1" y="336" width="7.7" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1735.1" y="306" width="4.3" height="28" fill="hsl(69,75%,73%)"/>
+<rect x="1735.1" y="276" width="4.1" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1739.8" y="306" width="2.7" height="28" fill="hsl(38,75%,66%)"/>
+<rect x="1743.5" y="366" width="22.7" height="28" fill="hsl(46,75%,62%)"/>
+<rect x="1743.5" y="336" width="5.2" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="1743.5" y="306" width="5.0" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="1749.2" y="336" width="16.3" height="28" fill="hsl(49,75%,65%)"/>
+<rect x="1749.2" y="306" width="15.5" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="1749.2" y="276" width="14.2" height="28" fill="hsl(10,75%,62%)"/>
+<rect x="1749.3" y="246" width="8.5" height="28" fill="hsl(13,75%,65%)"/>
+<rect x="1749.3" y="216" width="4.5" height="28" fill="hsl(40,75%,68%)"/>
+<rect x="1749.3" y="186" width="3.5" height="28" fill="hsl(43,75%,71%)"/>
+<rect x="1758.3" y="246" width="4.1" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1758.8" y="216" width="3.2" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1770.6" y="396" width="4.9" height="28" fill="hsl(58,75%,62%)"/>
+</svg>

@@ -1,0 +1,3 @@
+# Copy to config.toml (gitignored) and set your local paths.
+data = "/path/to/census/data"   # data root: setup.sh links ./data here
+h5ad = "/path/to/census/h5ad"   # source h5ads (default: <data>/h5ad)

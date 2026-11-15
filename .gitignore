@@ -1,0 +1,14 @@
+/data
+/config.toml
+*.part
+__pycache__/
+.DS_Store
+ext/
+.venv/
+.claude/
+/results/catalogs/
+/results/scaling/catalogs-*/
+/results/spike/catalogs*/
+/results/spike/tables/
+/results/profiles/*.txt
+/results/profiles/*.json

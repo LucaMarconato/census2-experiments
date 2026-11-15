@@ -1,0 +1,20 @@
+[project]
+name = "census2-experiments"
+version = "0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "census2-dataset-writer[s3]",
+    "census2-sdk[s3]",
+    "duckdb>=2.0.0",
+    "icechunk>=2.3.1",
+    "py-spy",
+    "pyiceberg[sql-sqlite]>=0.12.0",
+    "tabulate",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+census2-dataset-writer = { path = "ext/cellxgene-census2-prototype/census2-dataset-writer", editable = true }
+census2-sdk = { path = "ext/cellxgene-census2-prototype/census2-sdk", editable = true }
