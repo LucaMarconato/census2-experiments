@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Check that store sets on different backends give the same results.
+"""Check that local disk, AWS Emulator and floci return identical data for the same stores.
 
 1. results/bench.jsonl: per shape and workers, the same stores, cells, requests and MB.
-2. get_anndata of one cell type: obs, var and X equal across backends.
+2. get_anndata of one cell type in a fresh process per backend (CHILD): SHA-256 of obs, var and X
+   must match across backends.
 
     uv run python consistency.py local-small emu-small floci-small
 """
