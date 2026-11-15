@@ -3,7 +3,9 @@
 
 Real stores up to all of data/zarr; beyond that, the prototype's copy method (bench.catalogs):
 copy k of a store is a symlink data/copies/cKK/<id>.zarr -> data/zarr/<id>.zarr, with its own
-dataset_id in the catalog, so it costs no disk. Appends to results/scaling/bench.jsonl.
+dataset_id in the catalog, so it costs no disk. The catalog (one Parquet row per store) is what the
+SDK opens, so each size N gets its own: catalog-N.parquet = the first N rows of the expanded
+catalog (floci: of the floci-4g catalog). Appends to results/scaling/bench.jsonl.
 
     uv run python scaling.py --sizes 5,10,20,44,93,200,500,1000,2000
 """
