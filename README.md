@@ -5,9 +5,30 @@ Not intended for production: it explores how Census 2 (one Zarr store per datase
 
 Claude (Anthropic) was used to run the benchmarks and present the results.
 
+## Overview
+
+```mermaid
+flowchart LR
+  M[prototype manifests] --> D[download.py] --> H[(h5ad)]
+  R[stage-refdata.py] --> G[(GENCODE refs)]
+  H --> S[subset.py] --> C[convert.py]
+  G --> C
+  C --> Z[(data/zarr: one store per dataset)]
+  Z --> L[local disk]
+  Z --> E[emulator/, floci/: local S3]
+  Z --> P[parent_zarr.py, icechunk_bench.py]
+  Z --> F[spike/fragments.py: Iceberg, DuckDB]
+  L & E --> B[bench.py, scaling.py, consistency.py, profile.sh]
+  E --> X[latency_proxy.py]
+  P & X --> I[icechunk_bench.py, latency_bench.sh]
+  F --> SB[spike/bench.sh]
+  B & I & SB --> O[(results/)]
+```
+
 ## Data
 
 103 human datasets of Census 1 LTS `2025-11-08` (147 GiB h5ad, 13.3M cells); manifests from the prototype's `bulk-ingest-nf/manifests/` (`tools/census1-sample.py`).
+Of the prototype's Nextflow ingest pipeline only `stage-refdata.py` is used: it fetches the GENCODE gene references that the writer needs. `download.py` fetches the h5ads over HTTPS, and `convert.py` calls the same writer (`census2_dataset_writer.create`) locally, with no Nextflow, Docker or AWS.
 
 ```bash
 git clone --recurse-submodules <this repo>   # prototype and spike, pinned as submodules
