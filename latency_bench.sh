@@ -1,5 +1,11 @@
 #!/bin/sh
-# Separate vs parent vs Icechunk on floci behind latency_proxy.py, at each added delay (ms).
+# Separate vs parent vs Icechunk on floci with an added delay per S3 request.
+# Needs floci on :4566 with the 4g stores, the parent store and the Icechunk repo.
+# Per delay (ms, default 10 50): latency_proxy.py on :4567 holds each new HTTP request
+# that long before forwarding to floci (responses pass undelayed), icechunk_bench.py runs
+# through it (open, count_cell_type, corpus_obs, single; 1 and 8 workers; 3 timed repeats
+# plus one counted run, each a new process), then the proxy stops.
+# Appends to $OUT (default results/icechunk/bench-latency.jsonl), label +<ms>ms$LABEL_SUFFIX.
 cd "$(dirname "$0")"
 for ms in ${@:-10 50}; do
   python3 latency_proxy.py --listen 4567 --target 4566 --delay-ms $ms & P=$!
