@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
-"""Check that local disk, AWS Emulator and floci return identical data for the same stores.
+"""Check that local disk and floci return identical data for the same stores.
 
-1. results/bench.jsonl: per shape and workers, the same stores, cells, requests and MB.
+1. <results>/bench.jsonl: per shape and workers, the same stores, cells, requests and MB.
 2. get_anndata of one cell type in a fresh process per backend (CHILD): SHA-256 of obs, var and X
    must match across backends.
+Prints the report and writes it to <results>/consistency-<stores>.txt.
 
-    uv run python consistency.py local-small emu-small floci-small
+    python consistency.py local-4GB floci-4GB
 """
 
 import os
 import subprocess
 import sys
-from pathlib import Path
-
 import pandas as pd
 
 from bench import CATALOGS, HERE, backend_env
+from config import RESULTS
 
 KEYS = ["stores_opened", "cells", "requests", "mb_payload"]
 
@@ -40,20 +40,26 @@ print(ct, a.n_obs, a.n_vars,
 
 def main() -> int:
     sets = sys.argv[1:]
-    df = pd.read_json(HERE / "results/bench.jsonl", lines=True)
+    lines = []
+
+    def say(s: str) -> None:
+        lines.append(s)
+        print(s, flush=True)
+
+    df = pd.read_json(RESULTS / "bench.jsonl", lines=True)
     df = df[df["where"].isin(sets) & (df["status"] == "ok")]
     ok = True
-    print("1. bench records (distinct values across repeats and sets)")
+    say("1. bench records (distinct values across repeats and sets)")
     for (shape, workers), g in df.groupby(["shape", "workers"]):
         vals = {k: sorted(g[k].unique().tolist()) for k in KEYS}
         same = all(len(v) == 1 for v in vals.values())
-        ok &= same or shape == "x"
+        ok &= same
         flag = "same" if same else "DIFF " + str(
             g.groupby("where")[KEYS].agg(lambda s: sorted(s.unique().tolist())).to_dict("index")
         )
-        print(f"  {shape:<10} w={workers:<3} {flag}")
+        say(f"  {shape:<10} w={workers:<3} {flag}")
 
-    print("2. get_anndata(cell_type): cell type, n_obs, n_vars, sha256 of obs, var, X")
+    say("2. get_anndata(cell_type): cell type, n_obs, n_vars, sha256 of obs, var, X")
     outs = {}
     for name in sets:
         cat = next((CATALOGS / name).glob("catalog-[0-9]*.parquet"))
@@ -63,9 +69,10 @@ def main() -> int:
             [sys.executable, "-c", CHILD, str(cat.resolve())], env=env, cwd=env["PYTHONPATH"], capture_output=True, text=True, check=True
         ).stdout.strip()
         outs[name] = out
-        print(f"  {name:<12} {out}")
+        say(f"  {name:<12} {out}")
     ok &= len(set(outs.values())) == 1
-    print("CONSISTENT" if ok else "MISMATCH")
+    say("CONSISTENT" if ok else "MISMATCH")
+    (RESULTS / f"consistency-{sets[0].split('-', 1)[1]}.txt").write_text("\n".join(lines) + "\n")
     return 0 if ok else 1
 
 

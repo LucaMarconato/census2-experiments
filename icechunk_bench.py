@@ -2,36 +2,38 @@
 """Icechunk vs plain Zarr stores: the same AnnData-Zarr stores, read the same way.
 
 build: copy the stores of a manifest, key by key, into one Icechunk repo (one group per
-dataset), commit, and tag the commit as a release. Storage is local (data/icechunk) or
+dataset), commit, and tag the commit as a release. Storage is local (<data>/icechunk) or
 floci (s3://icechunk/census2 on 127.0.0.1:4566, dummy creds). No account, no network.
+A build replaces any earlier repo.
 bench: open / corpus_obs / corpus_x / single over the repo, over the plain stores, and over
 one parent Zarr store with consolidated metadata (parent_zarr.py),
-one new process per run. Appends to results/icechunk/bench.jsonl.
+one new process per run. Writes --out (default <results>/icechunk/bench-<where>.jsonl), anew unless --append.
 
-    uv run python icechunk_bench.py build --where local
-    uv run python icechunk_bench.py bench --where local --shapes open,corpus_obs,corpus_x
+    python icechunk_bench.py build --where local
+    python icechunk_bench.py bench --where local --shapes open,corpus_obs,corpus_x
 """
 
 import argparse
 import json
 import os
 import resource
+import shutil
 import subprocess
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-HERE = Path(__file__).parent.resolve()
-OUT = HERE / "results/icechunk/bench.jsonl"
-TAG = "release-4g"  # tag name of the existing Icechunk repo
+from config import DATA, HERE, RESULTS, SUBSETS
+
+TAG = "release"
 
 
 def storage(where: str):
     import icechunk as ic
 
     if where == "local":
-        return ic.local_filesystem_storage(str(HERE / "data/icechunk"))
+        return ic.local_filesystem_storage(str(DATA / "icechunk"))
     return ic.s3_storage(
         bucket="icechunk", prefix="census2", endpoint_url=os.environ.get("AWS_ENDPOINT_URL", "http://127.0.0.1:4566"),
         allow_http=True, region="us-east-1", force_path_style=True,
@@ -50,14 +52,17 @@ def build(where: str, manifest: Path) -> None:
     from zarr.core.sync import sync
 
     if where == "floci":
-        subprocess.run(["sh", "-c", f". {HERE}/floci/env.sh && aws s3 mb s3://icechunk || true"], check=True)
+        sh = f". {HERE}/floci/env.sh && (aws s3 mb s3://icechunk || true) && aws s3 rm --quiet --recursive s3://icechunk/census2"
+        subprocess.run(["sh", "-c", sh], check=True)
+    else:
+        shutil.rmtree(DATA / "icechunk", ignore_errors=True)
     repo = ic.Repository.create(storage(where))
     session = repo.writable_session("main")
     store = session.store
     zarr.open_group(store, mode="w")  # the root group
     t0, nbytes = time.monotonic(), 0
     for dvid in ids(manifest):
-        root = HERE / "data/zarr" / f"{dvid}.zarr"
+        root = DATA / "zarr" / f"{dvid}.zarr"
         # metadata first, parents before children: Icechunk needs the node before its chunks
         files = sorted((p for p in root.rglob("*") if p.is_file()),
                        key=lambda p: (p.name != "zarr.json", len(p.parts), str(p)))  # fmt: skip
@@ -91,7 +96,7 @@ def base_store(backend: str, where: str, dvid: str | None = None):
 
         return ic.Repository.open(storage(where)).readonly_session(tag=TAG).store
     if where == "local":
-        path = HERE / ("data/parent.zarr" if backend == "parent" else f"data/zarr/{dvid}.zarr")
+        path = DATA / ("parent.zarr" if backend == "parent" else f"zarr/{dvid}.zarr")
         return zarr.storage.LocalStore(str(path), read_only=True)
     import obstore.store
 
@@ -154,13 +159,14 @@ def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("cmd", choices=["build", "bench", "one"])
     p.add_argument("--where", default="local", choices=["local", "floci"])
-    p.add_argument("--manifest", type=Path, default=HERE / "subsets/4GB.jsonl")
-    p.add_argument("--shapes", default="open,single,corpus_obs,corpus_x")
-    p.add_argument("--workers", default="1,8")
+    p.add_argument("--manifest", type=Path, default=SUBSETS / "4GB.jsonl")
+    p.add_argument("--shapes", default="open,count_cell_type,corpus_obs")
+    p.add_argument("--workers", default="8")
     p.add_argument("--repeats", type=int, default=3)
     p.add_argument("--backend", default="icechunk")
     p.add_argument("--backends", default="zarr,parent,icechunk", help="for bench")
-    p.add_argument("--out", type=Path, default=OUT)
+    p.add_argument("--out", type=Path, default=None)
+    p.add_argument("--append", action="store_true", help="keep the records already in --out")
     p.add_argument("--endpoint", default=None, help="override the floci endpoint")
     p.add_argument("--label", default="", help="a free label stored in each record")
     p.add_argument("--count", action="store_true", help="count reads (one extra run per cell in bench)")
@@ -175,7 +181,10 @@ def main() -> int:
     elif a.cmd == "one":
         print(json.dumps(run(a.backend, a.where, a.shapes, int(a.workers), a.manifest, a.count)))
     else:
+        a.out = a.out or RESULTS / f"icechunk/bench-{a.where}.jsonl"
         a.out.parent.mkdir(parents=True, exist_ok=True)
+        if not a.append:
+            a.out.unlink(missing_ok=True)
         for shape in a.shapes.split(","):
             for w in a.workers.split(","):
                 for backend in a.backends.split(","):

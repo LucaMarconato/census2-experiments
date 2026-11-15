@@ -8,6 +8,9 @@ __pycache__/
 /results/catalogs/
 /results/scaling/catalogs-*/
 /results/spike/catalogs*/
-/results/spike/tables/
+/results/spike/table/
 /results/profiles/*.txt
 /results/profiles/*.json
+/tiny/
+.pixi/
+/results/spike/tables/

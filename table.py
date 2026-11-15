@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""Summarize results/bench.jsonl as a markdown table of medians (results/bench.md)."""
+"""Summarize <results>/bench.jsonl as a markdown table of medians (<results>/bench.md)."""
 
 import sys
 from pathlib import Path
 
 import pandas as pd
 
-src = Path(sys.argv[1] if len(sys.argv) > 1 else "results/bench.jsonl")
+from config import RESULTS
+
+src = Path(sys.argv[1]) if len(sys.argv) > 1 else RESULTS / "bench.jsonl"
 df = pd.read_json(src, lines=True)
 ok = df[df["status"] == "ok"]
 t = (

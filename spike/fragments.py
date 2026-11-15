@@ -3,9 +3,8 @@
 
 Uses the spike branch's writer (`fragment_table`, `write_fragment`, `spike/obs-duckdb`) on the
 store's existing `obs` and `X/indptr`, so no store is converted again, and records the fragment
-in the store's attributes. spike/bench.sh builds the Iceberg table and queries DuckDB over these.
-
-    uv run --project spike python spike/fragments.py data/zarr
+in the store's attributes, for every store in <data>/zarr. spike/bench.sh builds the Iceberg table
+and queries DuckDB over these. Runs in the spike env.
 """
 
 import sys
@@ -17,6 +16,9 @@ import numpy as np
 import zarr
 from anndata.io import read_elem
 from census2_dataset_writer.store_format import FRAGMENT_KEY, SUMMARY_NAMESPACE
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from config import DATA  # noqa: E402
 
 
 def one(store: Path) -> str:
@@ -32,7 +34,7 @@ def one(store: Path) -> str:
 
 
 if __name__ == "__main__":
-    stores = sorted(Path(sys.argv[1]).glob("*.zarr"))
+    stores = sorted((DATA / "zarr").glob("*.zarr"))
     with ProcessPoolExecutor(4) as pool:
         for line in pool.map(one, stores):
             print(line, flush=True)

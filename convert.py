@@ -10,9 +10,8 @@ from pathlib import Path
 
 import census2_dataset_writer as w
 
-from config import H5AD
+from config import DATA, H5AD, SUBSETS
 
-HERE = Path(__file__).parent
 
 
 def convert(rec: dict, src: Path, dest: Path, refdata: Path) -> str:
@@ -35,10 +34,10 @@ def convert(rec: dict, src: Path, dest: Path, refdata: Path) -> str:
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("manifest", type=Path)
+    p.add_argument("manifest", type=Path, nargs="?", default=SUBSETS / "all.jsonl")
     p.add_argument("--src", type=Path, default=H5AD, help="h5ad directory")
-    p.add_argument("--dest", type=Path, default=HERE / "data" / "zarr")
-    p.add_argument("--refdata", type=Path, default=HERE / "data" / "refdata")
+    p.add_argument("--dest", type=Path, default=DATA / "zarr")
+    p.add_argument("--refdata", type=Path, default=DATA / "refdata")
     p.add_argument("--jobs", type=int, default=2)
     a = p.parse_args()
 

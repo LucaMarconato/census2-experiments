@@ -41,7 +41,7 @@
 <text x="1107.5" y="38.0" text-anchor="middle" fill="#1A202C">local disk</text>
 <rect x="1020" y="75" width="175" height="46" rx="6" fill="#FDF1E4" stroke="#E07A2F" stroke-width="1.5"/>
 <text x="1107.5" y="94" text-anchor="middle" fill="#1A202C">local S3</text>
-<text x="1107.5" y="111" text-anchor="middle" font-size="12" fill="#4A5568">emulator/, floci/</text>
+<text x="1107.5" y="111" text-anchor="middle" font-size="12" fill="#4A5568">floci/</text>
 <rect x="1020" y="140" width="175" height="46" rx="6" fill="#FDF1E4" stroke="#E07A2F" stroke-width="1.5"/>
 <text x="1107.5" y="168.0" text-anchor="middle" fill="#1A202C">parent Zarr, Icechunk</text>
 <rect x="1020" y="205" width="175" height="46" rx="6" fill="#FDF1E4" stroke="#E07A2F" stroke-width="1.5"/>

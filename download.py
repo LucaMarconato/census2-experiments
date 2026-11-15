@@ -50,12 +50,15 @@ def main() -> int:
     p.add_argument("--dest", type=Path, default=H5AD)
     p.add_argument("--jobs", type=int, default=4)
     p.add_argument("--max-gib", type=float, help="subset: first datasets up to this total")
+    p.add_argument("--smallest", type=int, help="subset: the N smallest datasets (tiny profile)")
     a = p.parse_args()
 
     recs = [json.loads(line) for m in a.manifests for line in m.open() if line.strip()]
     if a.max_gib:
         cum = list(accumulate(r["filesize"] for r in recs))
         recs = [r for r, c in zip(recs, cum) if c <= a.max_gib * 2**30]
+    if a.smallest:
+        recs = sorted(recs, key=lambda r: r["filesize"])[: a.smallest]
     a.dest.mkdir(parents=True, exist_ok=True)
     need = sum(r["filesize"] for r in recs if not (a.dest / f"{r['dataset_version_id']}.h5ad").exists())
     free = shutil.disk_usage(a.dest).free

@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """Run the prototype benchmark matrix (census2-sdk/tools/bench) on each store set.
 
-Per set: build its catalog (build_catalog.py, results/catalogs/<set>/), load the backend env,
+Per set: build its catalog (build_catalog.py, <results>/catalogs/<set>/), load the backend env,
 run bench.matrix: each shape x workers x repeat in a new process (no cache carries over).
 Shapes: single (get_anndata of one dataset), cell_type (get_anndata of the cell type in ~15% of
 datasets), open (open every store), corpus_obs (read all obs), corpus_x (read all X, keep nothing).
 Each record: catalog and query seconds, stores, cells, requests, MB read, peak RSS, status.
-Appends to results/bench.jsonl; table.py makes the table of medians.
+Writes <results>/bench.jsonl (anew); table.py makes the table of medians.
 
-A set is <backend>-<stores>: backend local (data/zarr), emu (AWS Emulator, emulator/start.sh)
-or floci (floci/start.sh); stores all, small (subsets/emu-small.jsonl) or 4GB (subsets/4GB.jsonl).
-On S3 each store has its own bucket, s3://s-<id>/<id>.zarr (the emulator caps a bucket at 64 MiB).
+A set is <backend>-<stores>: backend local (<data>/zarr) or floci (floci/start.sh); stores all or
+4GB (<subsets>/4GB.jsonl).
+Paths per profile: config.py.
+On S3 each store has its own bucket, s3://s-<id>/<id>.zarr.
 """
 
 import argparse
@@ -22,16 +23,17 @@ from pathlib import Path
 
 import pandas as pd
 
-HERE = Path(__file__).parent.resolve()
+from config import DATA, HERE, RESULTS, SUBSETS
+
 TOOLS = HERE / "ext/cellxgene-census2-prototype/census2-sdk/tools"
-CATALOGS = HERE / "results/catalogs"
+CATALOGS = RESULTS / "catalogs"
 
 
 def backend_env(backend: str) -> dict[str, str]:
     if backend == "local":
         return {}
     out = subprocess.run(
-        ["sh", "-c", f". {HERE}/{'emulator' if backend == 'emu' else backend}/env.sh && env -0"],
+        ["sh", "-c", f". {HERE}/{backend}/env.sh && env -0"],
         capture_output=True, text=True, check=True,
     ).stdout  # fmt: skip
     return dict(kv.split("=", 1) for kv in out.split("\0") if "=" in kv)
@@ -49,13 +51,13 @@ def catalog(name: str, env: dict[str, str]) -> Path:
     d = CATALOGS / name
     d.mkdir(parents=True, exist_ok=True)
     if found := sorted(d.glob("catalog-*.parquet")):
-        if not (name == "local-all" and int(found[0].stem.split("-")[1]) != len(list((HERE / "data/zarr").glob("*.zarr")))):
+        if not (name == "local-all" and int(found[0].stem.split("-")[1]) != len(list((DATA / "zarr").glob("*.zarr")))):
             return found[0]
         found[0].unlink()  # stores were added: rebuild
     backend, stores = name.split("-")
-    keep = None if stores == "all" else ids(HERE / f"subsets/{'emu-small' if stores == 'small' else stores}.jsonl")
+    keep = None if stores == "all" else ids(SUBSETS / f"{stores}.jsonl")
     if backend == "local":
-        prefixes = [f"{HERE}/data/zarr/"]
+        prefixes = [f"{(DATA / 'zarr').resolve()}/"]
     else:
         prefixes = [f"s3://s-{i}/" for i in sorted(keep)]
     parts = []
@@ -74,14 +76,14 @@ def catalog(name: str, env: dict[str, str]) -> Path:
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--sets", default="local-all,local-small,emu-small,local-4GB")
+    p.add_argument("--sets", default="local-all,local-4GB,floci-4GB")
     p.add_argument("--shapes", default="single,cell_type,open,corpus_obs,corpus_x")
-    p.add_argument("--workers", default="1,8,32")
+    p.add_argument("--workers", default="1,8")
     p.add_argument("--repeats", type=int, default=3)
-    p.add_argument("--out", type=Path, default=HERE / "results/bench.jsonl")
-    p.add_argument("--suffix", default="", help="appended to `where`, e.g. -ext for the external disk")
+    p.add_argument("--out", type=Path, default=RESULTS / "bench.jsonl")
     a = p.parse_args()
 
+    a.out.unlink(missing_ok=True)
     for name in a.sets.split(","):
         env = {**os.environ, **backend_env(name.split("-")[0])}
         env["PYTHONPATH"] = str(TOOLS)
@@ -90,7 +92,7 @@ def main() -> int:
         subprocess.run(
             [sys.executable, "-m", "bench.matrix", "--catalogs", cat.parent, "--sizes", size,
              "--shapes", a.shapes, "--workers", a.workers, "--repeats", str(a.repeats),
-             "--where", name + a.suffix, "--out", a.out.resolve()],
+             "--where", name, "--out", a.out.resolve()],
             check=True, env=env, cwd=TOOLS,
         )  # fmt: skip
     return 0
