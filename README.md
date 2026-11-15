@@ -40,7 +40,16 @@ uv run --project spike python spike/fragments.py data/zarr && spike/bench.sh   #
 spike/bench-4g.sh                                   # spike paths on the 4g set, vs Icechunk
 ```
 
-`-ext` results ran on an external USB SSD with all 103 stores; the others (backend consistency, profiles, spike on 4g) on the internal SSD. Emulators bind to 127.0.0.1 only, telemetry and update checks off. AWS Emulator caps a bucket at 64 MiB, so each store has its own bucket.
+Results in `results/` ran on an external USB SSD with all 103 stores. Emulators bind to 127.0.0.1 only, telemetry and update checks off. AWS Emulator caps a bucket at 64 MiB, so each store has its own bucket.
+
+## Earlier takeaways
+
+From an earlier version of the code, on a smaller subset (5, 21 and 44 stores, internal SSD); results not kept:
+- Local disk, AWS Emulator and floci return identical results (requests, bytes, `get_anndata` hashes).
+- 8 workers speed up the `obs` scan about 1.3x; 32 add nothing.
+- floci on localhost: reading all X of 21 stores (4 GB) took 21 s vs 7 s on local disk; other shapes 1.1 to 1.5x slower.
+- Profiles of the full X read: one `zarr_io` event-loop thread is busy 80% of wall time and holds most of the GIL. `obs` scans spend their time in string decoding, cell-type queries in coordinate indexing.
+- Spike, 21 stores: an Iceberg table or DuckDB over `obs` fragments answers `obs` scans 3 to 9x and counts 7 to 55x faster than reading each store.
 
 ## License
 
