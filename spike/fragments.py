@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Write the spike's obs fragment next to each existing store, and its record into the store.
+"""Write each store's obs as a Parquet fragment (<store>.obs.parquet) with the prototype's code.
 
-Same code as the spike writer (`fragment_table`, `write_fragment`), from the store's
-`obs` and `X/indptr`, so no store is converted again.
+Uses the spike branch's writer (`fragment_table`, `write_fragment`, `spike/obs-duckdb`) on the
+store's existing `obs` and `X/indptr`, so no store is converted again, and records the fragment
+in the store's attributes. spike/bench.sh builds the Iceberg table and queries DuckDB over these.
 
     uv run --project spike python spike/fragments.py data/zarr
 """
