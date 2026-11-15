@@ -26,7 +26,7 @@ uv run python convert.py subsets/all.jsonl   # h5ad -> Census 2 Zarr in data/zar
 ## Benchmarks
 
 ```bash
-uv run python subset.py data/zarr --max-gib 4 --from subsets/50g.jsonl --out subsets/4g.jsonl   # 4g: first 21 stores up to 4 GiB of Zarr, the S3 / Icechunk set
+uv run python subset.py data/zarr --max-gib 4 --fill --from subsets/50g.jsonl --out subsets/4g.jsonl   # 4g: 21 stores, 4 GiB of Zarr, the S3 / Icechunk set
 uv run python subset.py data/zarr --max-gib 0.117 --fill --max-store-mib 60 --from subsets/50g.jsonl --out subsets/emu-small.jsonl
 emulator/start.sh                                   # AWS Emulator (Docker), uploads emu-small
 floci/start.sh                                      # floci (Docker), uploads emu-small + 4g
