@@ -11,13 +11,13 @@ Claude (Anthropic) was used to run the benchmarks and present the results.
 
 ```bash
 cp config.example.toml config.toml   # set local paths
+./setup.sh                           # data/ link, prototype + spike clones, envs, gene refs
 uv run python download.py            # to h5ad; --max-gib 50 for a subset. Resumable
 ```
 
 ## Benchmarks
 
 ```bash
-./setup.sh                                          # data/ link, prototype + spike clones, envs, gene refs
 uv run python subset.py <h5ad dir>                  # subsets/50g.jsonl
 uv run python convert.py subsets/50g.jsonl          # data/zarr/
 uv run python subset.py data/zarr --max-gib 0.117 --fill --max-store-mib 60 --from subsets/50g.jsonl --out subsets/emu-small.jsonl
