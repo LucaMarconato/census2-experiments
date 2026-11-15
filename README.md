@@ -14,13 +14,13 @@ git clone --recurse-submodules <this repo>   # prototype and spike, pinned as su
 cp config.example.toml config.toml           # set local paths
 uv run python download.py                    # to h5ad; --max-gib 50 for a subset. Resumable
 uv run python ext/cellxgene-census2-prototype/bulk-ingest-nf/tools/stage-refdata.py data/refdata/
+uv run python subset.py <h5ad dir> --max-gib 1000 --out subsets/all.jsonl   # finished h5ads
+uv run python convert.py subsets/all.jsonl   # h5ad -> Census 2 Zarr in data/zarr/. Resumable
 ```
 
 ## Benchmarks
 
 ```bash
-uv run python subset.py <h5ad dir>                  # subsets/50g.jsonl
-uv run python convert.py subsets/50g.jsonl          # data/zarr/
 uv run python subset.py data/zarr --max-gib 0.117 --fill --max-store-mib 60 --from subsets/50g.jsonl --out subsets/emu-small.jsonl
 emulator/start.sh                                   # AWS Emulator (Docker), uploads emu-small
 floci/start.sh                                      # floci (Docker), uploads emu-small + 4g
