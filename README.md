@@ -42,24 +42,6 @@ spike/bench-4g.sh                                   # spike paths on the 4g set,
 
 Results in `results/` ran on an external USB SSD with all 103 stores. Emulators bind to 127.0.0.1 only, telemetry and update checks off. AWS Emulator caps a bucket at 64 MiB, so each store has its own bucket.
 
-## Takeaways
-
-External USB SSD, 103 stores (13.3M cells, 56 GB X); 21 stores on floci; medians at 8 workers.
-- Cost grows linearly with the number of stores: opening takes 4 requests and about 9 ms per store (17 s at 2,000), an `obs` scan about 80 ms per store (166 s at 2,000). A one-dataset query stays at 0.3 s.
-- Whole corpus: all `obs` in 8 s, all X in 148 s (about 380 MB/s). 32 workers add nothing over 8.
-- Iceberg or DuckDB over `obs` fragments: counts 40 to 180x faster than reading each store, the `obs` scan 4x, filtered queries 1.1 to 3.5x.
-- Parent Zarr with consolidated metadata: open needs 4 requests instead of 84 and a cell-type count 46 instead of 126. Icechunk opens fast (0.02 s vs 0.2 s on floci) but makes as many store reads as separate stores.
-- Latency dominates on S3: at +50 ms per request the `obs` scan of 21 stores takes 10 s at 8 workers and 67 s at 1 (1.2 s with none). Fewer requests (parent) and concurrency matter more than the format.
-
-## Earlier takeaways
-
-From an earlier version of the code, on a smaller subset (5, 21 and 44 stores, internal SSD); results not kept:
-- Local disk, AWS Emulator and floci return identical results (requests, bytes, `get_anndata` hashes).
-- 8 workers speed up the `obs` scan about 1.3x; 32 add nothing.
-- floci on localhost: reading all X of 21 stores (4 GB) took 21 s vs 7 s on local disk; other shapes 1.1 to 1.5x slower.
-- Profiles of the full X read: one `zarr_io` event-loop thread is busy 80% of wall time and holds most of the GIL. `obs` scans spend their time in string decoding, cell-type queries in coordinate indexing.
-- Spike, 21 stores: an Iceberg table or DuckDB over `obs` fragments answers `obs` scans 3 to 9x and counts 7 to 55x faster than reading each store.
-
 ## License
 
 Provided as is, without warranty of any kind. BSD-3-Clause, see [LICENSE](LICENSE).
