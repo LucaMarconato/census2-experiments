@@ -29,7 +29,7 @@ pixi run all tiny                            # smoke test: 3 smallest datasets, 
 
 The tiny profile runs every task and backend once (shape `open`, 8 workers, 1 repeat): about 2 min, plus about 1 min the first time for the environments, the download (70 MB) and the floci image.
 
-Full data (not yet run with pixi; untested):
+Full data:
 
 ```bash
 cp config.example.toml config.toml           # where the data (and h5ads) live
@@ -37,7 +37,7 @@ pixi run all                                 # download, convert, every benchmar
 pixi run profiles                            # py-spy flamegraphs; asks for sudo
 ```
 
-Estimated from earlier runs: a few hours to download and convert 147 GiB, then about 1 to 1.5 h of benchmarks.
+Benchmarks take about 70 min on a MacBook Pro (M3 Pro, 48 GB RAM) with the data on an external USB SSD: bench 34, scaling 14, spike 9, icechunk 6, latency 5 min. Download and convert (147 GiB) come first and took a few hours in earlier runs (not re-timed: the files were already there).
 
 Terms: a *shape* is a benchmark query, as in the prototype's `bench` tool: `single` (one dataset), `cell_type` (one cell type across all stores), `open` (open every store), `corpus_obs` (all `obs`), `corpus_x` (all X). A *set* is `<backend>-<stores>`: `local-all`, `local-4GB`, `floci-4GB`; 4GB is the stores that fit in 4 GiB of Zarr, used for S3, the parent store and Icechunk.
 

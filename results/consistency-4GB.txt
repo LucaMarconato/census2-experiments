@@ -1,0 +1,15 @@
+1. bench records (distinct values across repeats and sets)
+  cell_type  w=1   same
+  cell_type  w=8   same
+  corpus_obs w=1   same
+  corpus_obs w=8   same
+  corpus_x   w=1   same
+  corpus_x   w=8   same
+  open       w=1   same
+  open       w=8   same
+  single     w=1   same
+  single     w=8   same
+2. get_anndata(cell_type): cell type, n_obs, n_vars, sha256 of obs, var, X
+  local-4GB    CD16-negative, CD56-bright natural killer cell, human 889 78894 ea8bea332c82dea1 2db648a9391a200b b62b2d837a57b80c
+  floci-4GB    CD16-negative, CD56-bright natural killer cell, human 889 78894 ea8bea332c82dea1 2db648a9391a200b b62b2d837a57b80c
+CONSISTENT

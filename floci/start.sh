@@ -11,7 +11,7 @@ for c in $(docker ps --format '{{.Names}}' | grep '^census2-floci' | grep -vx "$
 if ! docker ps --format '{{.Names}}' | grep -qx "$NAME"; then
   mkdir -p "$DATA/floci"
   docker rm -f "$NAME" >/dev/null 2>&1 || true
-  docker run -d --platform linux/arm64 --name "$NAME" -p 127.0.0.1:4566:4566 \
+  docker run -d --name "$NAME" -p 127.0.0.1:4566:4566 \
     -e FLOCI_STORAGE_MODE=persistent -v "$(cd "$DATA/floci" && pwd -P):/app/data" $IMAGE >/dev/null
 fi
 until curl -sf http://127.0.0.1:4566/_floci/health >/dev/null; do sleep 1; done
