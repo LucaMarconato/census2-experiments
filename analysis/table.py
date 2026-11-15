@@ -6,9 +6,10 @@ from pathlib import Path
 
 import pandas as pd
 
-from config import RESULTS
+from config import RESULTS, scrub
 
 src = Path(sys.argv[1]) if len(sys.argv) > 1 else RESULTS / "bench.jsonl"
+scrub(src)
 df = pd.read_json(src, lines=True)
 ok = df[df["status"] == "ok"]
 t = (

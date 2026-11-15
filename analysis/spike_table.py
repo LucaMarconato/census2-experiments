@@ -3,9 +3,10 @@
 
 import pandas as pd
 
-from config import RESULTS
+from config import RESULTS, scrub
 
 src = RESULTS / "spike/bench.jsonl"
+scrub(src)
 df = pd.read_json(src, lines=True)
 df = df[df.status == "ok"]
 if "label" in df:

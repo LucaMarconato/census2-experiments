@@ -31,6 +31,16 @@ SUBSETS = DATA / "subsets"
 for _d in (DATA, RESULTS, SUBSETS):
     _d.mkdir(parents=True, exist_ok=True)
 
+
+
+def scrub(jsonl: Path) -> None:
+    """Make the local paths in a results file relative: <data>/... and repo-relative."""
+    text = jsonl.read_text()
+    for path, rel in ((DATA.resolve(), "<data>"), (HERE, ".")):
+        text = text.replace(f"file://{path}/", f"{rel}/").replace(f"{path}/", f"{rel}/")
+    jsonl.write_text(text)
+
+
 if __name__ == "__main__":
     for k, v in {"PROFILE": PROFILE, "DATA": DATA, "RESULTS": RESULTS, "SUBSETS": SUBSETS, "H5AD": H5AD}.items():
         print(f"{k}='{v}'")

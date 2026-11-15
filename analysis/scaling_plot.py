@@ -12,9 +12,10 @@ import math
 
 import pandas as pd
 
-from config import DATA, RESULTS
+from config import DATA, RESULTS, scrub
 
 OUT = RESULTS / "scaling"
+scrub(OUT / "bench.jsonl")
 d = pd.read_json(OUT / "bench.jsonl", lines=True)
 d = d[(d.status == "ok") & (d.workers == 8)]
 t = d.pivot_table(index=["where", "size"], columns="shape", values="query_seconds", aggfunc="median")
