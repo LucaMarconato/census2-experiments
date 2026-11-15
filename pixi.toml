@@ -7,6 +7,7 @@ platforms = ["osx-arm64"]
 python = "3.12.*"
 aria2 = "*"  # stage-refdata.py
 awscli = "*"  # uploads to the local S3 emulators
+graphviz = "*"  # docs/dag.py
 
 [pypi-dependencies]
 tabulate = "*"
@@ -114,6 +115,10 @@ depends-on = [
   { task = "latency", args = ["{{ profile }}"] },
   { task = "spike", args = ["{{ profile }}"], environment = "spike" },
 ]
+
+[tasks.dag]
+description = "Draw this task graph: docs/tasks.svg"
+cmd = "dot -c && python docs/dag.py"  # dot -c: register the plugins (pixi skips conda post-link)
 
 [tasks.floci-stop]
 description = "Stop the floci containers"
