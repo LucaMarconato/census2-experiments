@@ -1,6 +1,6 @@
 #!/bin/sh
 # Start floci (pinned image) on 127.0.0.1:4566 as census2-floci-<profile> (other profiles' stopped), S3 state
-# in <data>/floci; upload each store of <subsets>/4GB.jsonl to s3://s-<id>/<id>.zarr.
+# in <data>/floci; upload each store of <subsets>/4GB.jsonl to one bucket, s3://stores/<id>.zarr.
 # Same as `floci start`, but with a pinned digest, a localhost-only port and persistent storage.
 set -e
 cd "$(dirname "$0")/.."
@@ -16,7 +16,7 @@ if ! docker ps --format '{{.Names}}' | grep -qx "$NAME"; then
 fi
 until curl -sf http://127.0.0.1:4566/_floci/health >/dev/null; do sleep 1; done
 . floci/env.sh
+aws s3 mb s3://stores >/dev/null 2>&1 || true
 for id in $(python -c "import json,sys; [print(json.loads(l)['dataset_version_id']) for l in open(sys.argv[1])]" "$SUBSETS/4GB.jsonl"); do
-  aws s3 mb s3://s-$id >/dev/null 2>&1 || true
-  aws s3 sync --only-show-errors "$DATA/zarr/$id.zarr" s3://s-$id/$id.zarr
+  aws s3 sync --only-show-errors "$DATA/zarr/$id.zarr" s3://stores/$id.zarr
 done

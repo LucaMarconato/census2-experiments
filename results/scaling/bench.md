@@ -1,17 +1,17 @@
 | where         |   size |   corpus_obs |   open |   single |
 |:--------------|-------:|-------------:|-------:|---------:|
-| floci-scaling |      5 |         0.25 |   0.05 |     0.38 |
-| floci-scaling |     10 |         0.5  |   0.12 |     0.38 |
-| floci-scaling |     21 |         1.09 |   0.18 |     0.39 |
-| local-scaling |      5 |         0.23 |   0.04 |     0.34 |
-| local-scaling |     10 |         0.51 |   0.07 |     0.31 |
-| local-scaling |     20 |         1.78 |   0.16 |     0.3  |
-| local-scaling |     44 |         3.77 |   0.34 |     0.31 |
-| local-scaling |    103 |         8.55 |   0.81 |     0.31 |
-| local-scaling |    200 |        15.99 |   1.61 |     0.33 |
-| local-scaling |    500 |        38.17 |   4.03 |     0.34 |
-| local-scaling |   1000 |        75.35 |   7.45 |     0.31 |
-| local-scaling |   2000 |       151.99 |  15    |     0.32 |
+| floci-scaling |      5 |         0.29 |   0.07 |     0.43 |
+| floci-scaling |     10 |         0.57 |   0.09 |     0.42 |
+| floci-scaling |     21 |         1.21 |   0.18 |     0.43 |
+| local-scaling |      5 |         0.24 |   0.04 |     0.36 |
+| local-scaling |     10 |         0.53 |   0.08 |     0.32 |
+| local-scaling |     20 |         1.76 |   0.17 |     0.31 |
+| local-scaling |     44 |         3.62 |   0.33 |     0.29 |
+| local-scaling |    103 |         8.49 |   0.76 |     0.3  |
+| local-scaling |    200 |        16.48 |   1.62 |     0.35 |
+| local-scaling |    500 |        41.54 |   4.02 |     0.34 |
+| local-scaling |   1000 |        83.68 |   8.08 |     0.34 |
+| local-scaling |   2000 |       167.96 |  16.62 |     0.34 |
 
 Requests
 

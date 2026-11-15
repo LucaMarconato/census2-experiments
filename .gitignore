@@ -14,3 +14,4 @@ __pycache__/
 /tiny/
 .pixi/
 /results/spike/tables/
+/results/icechunk/*.requests

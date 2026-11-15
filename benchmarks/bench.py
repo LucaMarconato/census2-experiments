@@ -6,12 +6,12 @@ run bench.matrix: each shape x workers x repeat in a new process (no cache carri
 Shapes: single (get_anndata of one dataset), cell_type (get_anndata of the cell type in ~15% of
 datasets), open (open every store), corpus_obs (read all obs), corpus_x (read all X, keep nothing).
 Each record: catalog and query seconds, stores, cells, requests, MB read, peak RSS, status.
-Writes <results>/bench.jsonl (anew); table.py makes the table of medians.
+Writes <results>/bench.jsonl: the records of the sets it runs replace their earlier ones; table.py makes the table of medians.
 
 A set is <backend>-<stores>: backend local (<data>/zarr) or floci (floci/start.sh); stores all or
 4GB (<subsets>/4GB.jsonl).
 Paths per profile: config.py.
-On S3 each store has its own bucket, s3://s-<id>/<id>.zarr.
+On S3 the stores share one bucket: s3://stores/<id>.zarr.
 """
 
 import argparse
@@ -57,15 +57,12 @@ def catalog(name: str, env: dict[str, str]) -> Path:
     backend, stores = name.split("-")
     keep = None if stores == "all" else ids(SUBSETS / f"{stores}.jsonl")
     if backend == "local":
-        prefixes = [f"{(DATA / 'zarr').resolve()}/"]
+        prefix = f"{(DATA / 'zarr').resolve()}/"
     else:
-        prefixes = [f"s3://s-{i}/" for i in sorted(keep)]
-    parts = []
-    for k, prefix in enumerate(prefixes):
-        src = d / f"source-{k}.parquet"
-        subprocess.run([sys.executable, TOOLS / "build_catalog.py", prefix, src], check=True, env=env)
-        parts.append(pd.read_parquet(src))
-    rows = pd.concat(parts, ignore_index=True)
+        prefix = "s3://stores/"
+    src = d / "source.parquet"
+    subprocess.run([sys.executable, TOOLS / "build_catalog.py", prefix, src], check=True, env=env)
+    rows = pd.read_parquet(src)
     if keep is not None:  # same rows, same order on every backend
         rows = rows[rows["dataset_version_id"].isin(keep)]
         rows = rows.sort_values("dataset_version_id", ignore_index=True)
@@ -84,8 +81,10 @@ def main() -> int:
     p.add_argument("--catalogs-only", action="store_true", help="build the catalogs, run nothing")
     a = p.parse_args()
 
-    if not a.catalogs_only:
-        a.out.unlink(missing_ok=True)
+    if not a.catalogs_only and a.out.exists():  # drop the earlier records of these sets
+        sets = set(a.sets.split(","))
+        kept = [line for line in a.out.read_text().splitlines() if json.loads(line)["where"] not in sets]
+        a.out.write_text("".join(line + "\n" for line in kept))
     for name in a.sets.split(","):
         env = {**os.environ, **backend_env(name.split("-")[0])}
         env["PYTHONPATH"] = str(TOOLS)

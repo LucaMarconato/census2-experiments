@@ -83,7 +83,7 @@ depends-on = [{ task = "floci", args = ["{{ profile }}"] }]
 cmd = "python benchmarks/scaling.py {% if profile == 'tiny' %}--sizes 1,12 --floci-sizes 1 --shapes open --repeats 1{% else %}--sizes 5,10,20,44,103,200,500,1000,2000 --floci-sizes 5,10{% endif %} && python analysis/scaling_plot.py"
 
 [tasks.icechunk]
-description = "Separate stores vs one parent Zarr store vs Icechunk, local and floci"
+description = "Separate stores vs one parent Zarr store vs Icechunk (copied and virtual), local and floci"
 args = [{ arg = "profile", default = "real" }]
 env = { C2E_PROFILE = "{{ profile }}" }
 depends-on = [{ task = "floci", args = ["{{ profile }}"] }]
@@ -93,11 +93,12 @@ cmd = """python benchmarks/parent_zarr.py && sh floci/upload-parent.sh \
   && python -W ignore benchmarks/icechunk_bench.py bench --where floci {% if profile == 'tiny' %}--shapes open --repeats 1{% endif %}"""
 
 [tasks.latency]
-description = "The Icechunk comparison on floci with +10 and +50 ms per request"
+description = "The Icechunk comparison on floci with +10 and +50 ms per request; table of all three files"
 args = [{ arg = "profile", default = "real" }]
-env = { C2E_PROFILE = "{{ profile }}", SHAPES = "{% if profile == 'tiny' %}open{% endif %}", REPEATS = "{% if profile == 'tiny' %}1{% else %}3{% endif %}" }
+env = { C2E_PROFILE = "{{ profile }}" }
 depends-on = [{ task = "icechunk", args = ["{{ profile }}"] }]
-cmd = "sh benchmarks/latency_bench.sh {% if profile == 'tiny' %}10{% else %}10 50{% endif %}"
+cmd = """python -W ignore benchmarks/icechunk_bench.py bench --where floci \
+  {% if profile == 'tiny' %}--delays-ms 10 --shapes open --repeats 1{% else %}--delays-ms 10,50{% endif %} && python analysis/icechunk_table.py"""
 
 [tasks.profiles]
 description = "py-spy flamegraphs of the X, obs and cell-type reads (asks for sudo: py-spy needs root on macOS)"

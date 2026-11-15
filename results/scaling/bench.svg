@@ -34,52 +34,52 @@
 <line x1="140" y1="80" x2="1540" y2="80" stroke="#E2E0D8"/>
 <text x="128" y="88" text-anchor="end">1000 s</text>
 <text x="870" y="870" text-anchor="middle">stores (real up to 103, symlinked copies beyond)</text>
-<polyline points="140.0,595.7 302.0,547.0 463.9,470.4 648.2,424.2 846.9,373.7 1002.0,335.0 1216.1,281.4 1378.0,239.5 1540.0,196.2" fill="none" stroke="#2F6FDE" stroke-width="4" stroke-dasharray=""/>
-<circle cx="140.0" cy="595.7" r="6" fill="#2F6FDE"/>
-<circle cx="302.0" cy="547.0" r="6" fill="#2F6FDE"/>
-<circle cx="463.9" cy="470.4" r="6" fill="#2F6FDE"/>
-<circle cx="648.2" cy="424.2" r="6" fill="#2F6FDE"/>
-<circle cx="846.9" cy="373.7" r="6" fill="#2F6FDE"/>
-<circle cx="1002.0" cy="335.0" r="6" fill="#2F6FDE"/>
-<circle cx="1216.1" cy="281.4" r="6" fill="#2F6FDE"/>
-<circle cx="1378.0" cy="239.5" r="6" fill="#2F6FDE"/>
-<circle cx="1540.0" cy="196.2" r="6" fill="#2F6FDE"/>
+<polyline points="140.0,595.0 302.0,545.0 463.9,471.2 648.2,426.7 846.9,374.1 1002.0,333.2 1216.1,276.2 1378.0,233.0 1540.0,190.0" fill="none" stroke="#2F6FDE" stroke-width="4" stroke-dasharray=""/>
+<circle cx="140.0" cy="595.0" r="6" fill="#2F6FDE"/>
+<circle cx="302.0" cy="545.0" r="6" fill="#2F6FDE"/>
+<circle cx="463.9" cy="471.2" r="6" fill="#2F6FDE"/>
+<circle cx="648.2" cy="426.7" r="6" fill="#2F6FDE"/>
+<circle cx="846.9" cy="374.1" r="6" fill="#2F6FDE"/>
+<circle cx="1002.0" cy="333.2" r="6" fill="#2F6FDE"/>
+<circle cx="1216.1" cy="276.2" r="6" fill="#2F6FDE"/>
+<circle cx="1378.0" cy="233.0" r="6" fill="#2F6FDE"/>
+<circle cx="1540.0" cy="190.0" r="6" fill="#2F6FDE"/>
 <line x1="160" y1="110" x2="210" y2="110" stroke="#2F6FDE" stroke-width="4" stroke-dasharray=""/>
 <text x="220" y="118">corpus_obs, local disk</text>
-<polyline points="140.0,711.0 302.0,670.9 463.9,620.6 648.2,572.3 846.9,518.9 1002.0,476.5 1216.1,420.0 1378.0,382.2 1540.0,339.0" fill="none" stroke="#E07A2F" stroke-width="4" stroke-dasharray=""/>
+<polyline points="140.0,711.0 302.0,659.9 463.9,615.8 648.2,575.2 846.9,523.0 1002.0,476.4 1216.1,420.2 1378.0,377.1 1540.0,332.7" fill="none" stroke="#E07A2F" stroke-width="4" stroke-dasharray=""/>
 <circle cx="140.0" cy="711.0" r="6" fill="#E07A2F"/>
-<circle cx="302.0" cy="670.9" r="6" fill="#E07A2F"/>
-<circle cx="463.9" cy="620.6" r="6" fill="#E07A2F"/>
-<circle cx="648.2" cy="572.3" r="6" fill="#E07A2F"/>
-<circle cx="846.9" cy="518.9" r="6" fill="#E07A2F"/>
-<circle cx="1002.0" cy="476.5" r="6" fill="#E07A2F"/>
-<circle cx="1216.1" cy="420.0" r="6" fill="#E07A2F"/>
-<circle cx="1378.0" cy="382.2" r="6" fill="#E07A2F"/>
-<circle cx="1540.0" cy="339.0" r="6" fill="#E07A2F"/>
+<circle cx="302.0" cy="659.9" r="6" fill="#E07A2F"/>
+<circle cx="463.9" cy="615.8" r="6" fill="#E07A2F"/>
+<circle cx="648.2" cy="575.2" r="6" fill="#E07A2F"/>
+<circle cx="846.9" cy="523.0" r="6" fill="#E07A2F"/>
+<circle cx="1002.0" cy="476.4" r="6" fill="#E07A2F"/>
+<circle cx="1216.1" cy="420.2" r="6" fill="#E07A2F"/>
+<circle cx="1378.0" cy="377.1" r="6" fill="#E07A2F"/>
+<circle cx="1540.0" cy="332.7" r="6" fill="#E07A2F"/>
 <line x1="160" y1="144" x2="210" y2="144" stroke="#E07A2F" stroke-width="4" stroke-dasharray=""/>
 <text x="220" y="152">open, local disk</text>
-<polyline points="140.0,572.5 302.0,578.8 463.9,579.2 648.2,578.6 846.9,578.7 1002.0,575.2 1216.1,573.0 1378.0,577.3 1540.0,576.4" fill="none" stroke="#4A5568" stroke-width="4" stroke-dasharray=""/>
-<circle cx="140.0" cy="572.5" r="6" fill="#4A5568"/>
-<circle cx="302.0" cy="578.8" r="6" fill="#4A5568"/>
-<circle cx="463.9" cy="579.2" r="6" fill="#4A5568"/>
-<circle cx="648.2" cy="578.6" r="6" fill="#4A5568"/>
-<circle cx="846.9" cy="578.7" r="6" fill="#4A5568"/>
-<circle cx="1002.0" cy="575.2" r="6" fill="#4A5568"/>
-<circle cx="1216.1" cy="573.0" r="6" fill="#4A5568"/>
-<circle cx="1378.0" cy="577.3" r="6" fill="#4A5568"/>
-<circle cx="1540.0" cy="576.4" r="6" fill="#4A5568"/>
+<polyline points="140.0,568.8 302.0,576.4 463.9,578.8 648.2,583.3 846.9,579.3 1002.0,571.0 1216.1,572.6 1378.0,573.3 1540.0,572.1" fill="none" stroke="#4A5568" stroke-width="4" stroke-dasharray=""/>
+<circle cx="140.0" cy="568.8" r="6" fill="#4A5568"/>
+<circle cx="302.0" cy="576.4" r="6" fill="#4A5568"/>
+<circle cx="463.9" cy="578.8" r="6" fill="#4A5568"/>
+<circle cx="648.2" cy="583.3" r="6" fill="#4A5568"/>
+<circle cx="846.9" cy="579.3" r="6" fill="#4A5568"/>
+<circle cx="1002.0" cy="571.0" r="6" fill="#4A5568"/>
+<circle cx="1216.1" cy="572.6" r="6" fill="#4A5568"/>
+<circle cx="1378.0" cy="573.3" r="6" fill="#4A5568"/>
+<circle cx="1540.0" cy="572.1" r="6" fill="#4A5568"/>
 <line x1="160" y1="178" x2="210" y2="178" stroke="#4A5568" stroke-width="4" stroke-dasharray=""/>
 <text x="220" y="186">single, local disk</text>
-<polyline points="140.0,590.6 302.0,549.1 475.3,500.9" fill="none" stroke="#2F6FDE" stroke-width="4" stroke-dasharray="8 6"/>
-<circle cx="140.0" cy="590.6" r="6" fill="#2F6FDE"/>
-<circle cx="302.0" cy="549.1" r="6" fill="#2F6FDE"/>
-<circle cx="475.3" cy="500.9" r="6" fill="#2F6FDE"/>
+<polyline points="140.0,582.0 302.0,540.2 475.3,494.0" fill="none" stroke="#2F6FDE" stroke-width="4" stroke-dasharray="8 6"/>
+<circle cx="140.0" cy="582.0" r="6" fill="#2F6FDE"/>
+<circle cx="302.0" cy="540.2" r="6" fill="#2F6FDE"/>
+<circle cx="475.3" cy="494.0" r="6" fill="#2F6FDE"/>
 <line x1="160" y1="212" x2="210" y2="212" stroke="#2F6FDE" stroke-width="4" stroke-dasharray="8 6"/>
 <text x="220" y="220">corpus_obs, floci S3</text>
-<polyline points="140.0,695.2 302.0,637.8 475.3,611.1" fill="none" stroke="#E07A2F" stroke-width="4" stroke-dasharray="8 6"/>
-<circle cx="140.0" cy="695.2" r="6" fill="#E07A2F"/>
-<circle cx="302.0" cy="637.8" r="6" fill="#E07A2F"/>
-<circle cx="475.3" cy="611.1" r="6" fill="#E07A2F"/>
+<polyline points="140.0,667.8 302.0,654.5 475.3,611.4" fill="none" stroke="#E07A2F" stroke-width="4" stroke-dasharray="8 6"/>
+<circle cx="140.0" cy="667.8" r="6" fill="#E07A2F"/>
+<circle cx="302.0" cy="654.5" r="6" fill="#E07A2F"/>
+<circle cx="475.3" cy="611.4" r="6" fill="#E07A2F"/>
 <line x1="160" y1="246" x2="210" y2="246" stroke="#E07A2F" stroke-width="4" stroke-dasharray="8 6"/>
 <text x="220" y="254">open, floci S3</text>
 </svg>
