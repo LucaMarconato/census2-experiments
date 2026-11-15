@@ -1,0 +1,274 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="640" font-family="Helvetica,Arial" font-size="18">
+<rect width="1800" height="640" fill="#FBFBF8"/>
+<text x="8" y="26" font-size="22" font-weight="bold">Zoom: the zarr_io event-loop thread in corpus_obs</text>
+<rect x="0.0" y="606" width="1799.5" height="28" fill="hsl(24,75%,64%)"/>
+<text x="3.0" y="627">zarr_io 100%</text>
+<rect x="0.0" y="576" width="6.5" height="28" fill="hsl(10,75%,62%)"/>
+<rect x="0.0" y="546" width="5.3" height="28" fill="hsl(10,75%,62%)"/>
+<rect x="9.3" y="576" width="4.1" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="13.9" y="576" width="137.6" height="28" fill="hsl(55,75%,71%)"/>
+<text x="16.9" y="597">BaseSelector…</text>
+<rect x="155.5" y="576" width="3.0" height="28" fill="hsl(37,75%,65%)"/>
+<rect x="159.0" y="576" width="22.7" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="159.0" y="546" width="3.0" height="28" fill="hsl(40,75%,68%)"/>
+<rect x="162.5" y="546" width="19.2" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="162.5" y="516" width="19.2" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="162.5" y="486" width="18.1" height="28" fill="hsl(40,75%,68%)"/>
+<rect x="164.8" y="456" width="3.0" height="28" fill="hsl(40,75%,68%)"/>
+<rect x="164.8" y="426" width="3.0" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="168.3" y="456" width="9.9" height="28" fill="hsl(40,75%,68%)"/>
+<rect x="168.3" y="426" width="8.8" height="28" fill="hsl(40,75%,68%)"/>
+<rect x="168.3" y="396" width="8.8" height="28" fill="hsl(43,75%,71%)"/>
+<rect x="168.3" y="366" width="7.6" height="28" fill="hsl(43,75%,71%)"/>
+<rect x="168.3" y="336" width="7.6" height="28" fill="hsl(43,75%,71%)"/>
+<rect x="182.2" y="576" width="5.3" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="182.2" y="546" width="5.3" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="188.0" y="576" width="410.3" height="28" fill="hsl(21,75%,73%)"/>
+<text x="191.0" y="597">_runner (sync.py) 23%</text>
+<rect x="188.0" y="546" width="34.3" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="188.0" y="516" width="33.2" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="190.3" y="486" width="4.1" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="190.3" y="456" width="3.0" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="196.1" y="486" width="4.1" height="28" fill="hsl(56,75%,72%)"/>
+<rect x="200.8" y="486" width="5.3" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="222.8" y="546" width="102.8" height="28" fill="hsl(67,75%,71%)"/>
+<text x="225.8" y="567">AsyncGro…</text>
+<rect x="222.8" y="516" width="88.9" height="28" fill="hsl(67,75%,71%)"/>
+<text x="225.8" y="537">AsyncGr…</text>
+<rect x="222.8" y="486" width="77.3" height="28" fill="hsl(55,75%,71%)"/>
+<text x="225.8" y="507">AsyncA…</text>
+<rect x="222.8" y="456" width="5.3" height="28" fill="hsl(47,75%,63%)"/>
+<rect x="222.8" y="426" width="4.1" height="28" fill="hsl(47,75%,63%)"/>
+<rect x="229.8" y="456" width="50.6" height="28" fill="hsl(55,75%,71%)"/>
+<text x="232.8" y="477">cre…</text>
+<rect x="229.8" y="426" width="12.3" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="229.8" y="396" width="8.8" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="229.8" y="366" width="6.5" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="230.9" y="336" width="5.3" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="230.9" y="306" width="4.1" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="244.9" y="426" width="9.9" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="246.0" y="396" width="8.8" height="28" fill="hsl(50,75%,66%)"/>
+<rect x="247.2" y="366" width="7.6" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="250.7" y="336" width="3.0" height="28" fill="hsl(50,75%,66%)"/>
+<rect x="255.3" y="426" width="13.4" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="257.6" y="396" width="8.8" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="269.2" y="426" width="4.1" height="28" fill="hsl(38,75%,66%)"/>
+<rect x="280.9" y="456" width="14.6" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="280.9" y="426" width="14.6" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="280.9" y="396" width="6.5" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="282.0" y="366" width="3.0" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="302.9" y="486" width="3.0" height="28" fill="hsl(51,75%,67%)"/>
+<rect x="314.5" y="516" width="11.1" height="28" fill="hsl(64,75%,68%)"/>
+<rect x="314.5" y="486" width="7.6" height="28" fill="hsl(64,75%,68%)"/>
+<rect x="314.5" y="456" width="7.6" height="28" fill="hsl(51,75%,67%)"/>
+<rect x="322.6" y="486" width="3.0" height="28" fill="hsl(51,75%,67%)"/>
+<rect x="326.1" y="546" width="272.2" height="28" fill="hsl(60,75%,64%)"/>
+<text x="329.1" y="567">open_group (asynchronous.…</text>
+<rect x="326.1" y="516" width="269.9" height="28" fill="hsl(67,75%,71%)"/>
+<text x="329.1" y="537">AsyncGroup.open (group.py)</text>
+<rect x="326.1" y="486" width="267.6" height="28" fill="hsl(67,75%,71%)"/>
+<text x="329.1" y="507">AsyncGroup._from_bytes_v3…</text>
+<rect x="326.1" y="456" width="261.8" height="28" fill="hsl(67,75%,71%)"/>
+<text x="329.1" y="477">AsyncGroup.from_dict (gr…</text>
+<rect x="326.1" y="426" width="261.8" height="28" fill="hsl(67,75%,71%)"/>
+<text x="329.1" y="447">GroupMetadata.from_dict …</text>
+<rect x="326.1" y="396" width="261.8" height="28" fill="hsl(67,75%,71%)"/>
+<text x="329.1" y="417">ConsolidatedMetadata.fro…</text>
+<rect x="326.1" y="366" width="250.2" height="28" fill="hsl(61,75%,65%)"/>
+<text x="329.1" y="387">ArrayV3Metadata.from_di…</text>
+<rect x="326.1" y="336" width="218.8" height="28" fill="hsl(61,75%,65%)"/>
+<text x="329.1" y="357">ArrayV3Metadata.__in…</text>
+<rect x="326.1" y="306" width="11.1" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="326.1" y="276" width="8.8" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="328.4" y="246" width="5.3" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="329.6" y="216" width="4.1" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="329.6" y="186" width="4.1" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="340.0" y="306" width="35.5" height="28" fill="hsl(61,75%,65%)"/>
+<rect x="340.0" y="276" width="34.3" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="340.0" y="246" width="34.3" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="340.0" y="216" width="8.8" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="340.0" y="186" width="4.1" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="351.6" y="216" width="13.4" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="351.6" y="186" width="11.1" height="28" fill="hsl(61,75%,65%)"/>
+<rect x="351.6" y="156" width="9.9" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="352.8" y="126" width="8.8" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="365.6" y="216" width="3.0" height="28" fill="hsl(38,75%,66%)"/>
+<rect x="379.5" y="306" width="6.5" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="386.5" y="306" width="19.2" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="386.5" y="276" width="15.7" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="386.5" y="246" width="7.6" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="395.7" y="246" width="3.0" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="395.7" y="216" width="3.0" height="28" fill="hsl(61,75%,65%)"/>
+<rect x="395.7" y="186" width="3.0" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="409.7" y="306" width="11.1" height="28" fill="hsl(61,75%,65%)"/>
+<rect x="409.7" y="276" width="9.9" height="28" fill="hsl(61,75%,65%)"/>
+<rect x="409.7" y="246" width="4.1" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="409.7" y="216" width="4.1" height="28" fill="hsl(61,75%,65%)"/>
+<rect x="421.3" y="306" width="9.9" height="28" fill="hsl(68,75%,72%)"/>
+<rect x="421.3" y="276" width="8.8" height="28" fill="hsl(68,75%,72%)"/>
+<rect x="421.3" y="246" width="6.5" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="421.3" y="216" width="6.5" height="28" fill="hsl(68,75%,72%)"/>
+<rect x="421.3" y="186" width="6.5" height="28" fill="hsl(68,75%,72%)"/>
+<rect x="423.6" y="156" width="4.1" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="423.6" y="126" width="4.1" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="423.6" y="96" width="3.0" height="28" fill="hsl(27,75%,67%)"/>
+<rect x="431.7" y="306" width="103.9" height="28" fill="hsl(61,75%,65%)"/>
+<text x="434.7" y="327">parse_co…</text>
+<rect x="431.7" y="276" width="97.0" height="28" fill="hsl(39,75%,67%)"/>
+<text x="434.7" y="297">Sharding…</text>
+<rect x="431.7" y="246" width="93.5" height="28" fill="hsl(39,75%,67%)"/>
+<text x="434.7" y="267">Shardin…</text>
+<rect x="431.7" y="216" width="6.5" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="431.7" y="186" width="3.0" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="431.7" y="156" width="3.0" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="435.2" y="186" width="3.0" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="438.7" y="216" width="42.4" height="28" fill="hsl(20,75%,72%)"/>
+<rect x="438.7" y="186" width="32.0" height="28" fill="hsl(20,75%,72%)"/>
+<rect x="481.6" y="216" width="42.4" height="28" fill="hsl(61,75%,65%)"/>
+<rect x="481.6" y="186" width="6.5" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="481.6" y="156" width="4.1" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="488.6" y="186" width="5.3" height="28" fill="hsl(14,75%,66%)"/>
+<rect x="488.6" y="156" width="4.1" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="488.6" y="126" width="4.1" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="488.6" y="96" width="3.0" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="494.4" y="186" width="7.6" height="28" fill="hsl(49,75%,65%)"/>
+<rect x="494.4" y="156" width="6.5" height="28" fill="hsl(49,75%,65%)"/>
+<rect x="502.5" y="186" width="6.5" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="509.5" y="186" width="4.1" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="509.5" y="156" width="3.0" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="509.5" y="126" width="3.0" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="547.8" y="336" width="12.3" height="28" fill="hsl(12,75%,64%)"/>
+<rect x="547.8" y="306" width="12.3" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="547.8" y="276" width="11.1" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="547.8" y="246" width="9.9" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="547.8" y="216" width="8.8" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="560.5" y="336" width="3.0" height="28" fill="hsl(61,75%,65%)"/>
+<rect x="565.2" y="336" width="7.6" height="28" fill="hsl(52,75%,68%)"/>
+<rect x="567.5" y="306" width="3.0" height="28" fill="hsl(52,75%,68%)"/>
+<rect x="567.5" y="276" width="3.0" height="28" fill="hsl(52,75%,68%)"/>
+<rect x="567.5" y="246" width="3.0" height="28" fill="hsl(52,75%,68%)"/>
+<rect x="576.8" y="366" width="4.1" height="28" fill="hsl(67,75%,71%)"/>
+<rect x="583.8" y="366" width="3.0" height="28" fill="hsl(67,75%,71%)"/>
+<rect x="583.8" y="336" width="3.0" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="583.8" y="306" width="3.0" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="588.4" y="456" width="5.3" height="28" fill="hsl(35,75%,63%)"/>
+<rect x="588.4" y="426" width="5.3" height="28" fill="hsl(35,75%,63%)"/>
+<rect x="588.4" y="396" width="5.3" height="28" fill="hsl(12,75%,64%)"/>
+<rect x="588.4" y="366" width="5.3" height="28" fill="hsl(60,75%,64%)"/>
+<rect x="588.4" y="336" width="5.3" height="28" fill="hsl(60,75%,64%)"/>
+<rect x="598.8" y="576" width="1051.0" height="28" fill="hsl(24,75%,64%)"/>
+<text x="601.8" y="597">concurrent_iter.&lt;locals&gt;.run (common.py) 58%</text>
+<rect x="598.8" y="546" width="391.8" height="28" fill="hsl(21,75%,73%)"/>
+<text x="601.8" y="567">BatchedCodecPipeline.read_batch (codec…</text>
+<rect x="598.8" y="516" width="13.4" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="598.8" y="486" width="13.4" height="28" fill="hsl(46,75%,62%)"/>
+<rect x="601.2" y="456" width="11.1" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="601.2" y="426" width="4.1" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="601.2" y="396" width="4.1" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="605.8" y="426" width="5.3" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="613.9" y="516" width="131.8" height="28" fill="hsl(56,75%,72%)"/>
+<text x="616.9" y="537">NDBuffer.__…</text>
+<rect x="746.2" y="516" width="236.3" height="28" fill="hsl(21,75%,73%)"/>
+<text x="749.2" y="537">_async_read_fallback (…</text>
+<rect x="746.2" y="486" width="66.8" height="28" fill="hsl(21,75%,73%)"/>
+<text x="749.2" y="507">Batch…</text>
+<rect x="746.2" y="456" width="63.3" height="28" fill="hsl(21,75%,73%)"/>
+<text x="749.2" y="477">Batc…</text>
+<rect x="746.2" y="426" width="52.9" height="28" fill="hsl(46,75%,62%)"/>
+<text x="749.2" y="447">Bas…</text>
+<rect x="746.2" y="396" width="52.9" height="28" fill="hsl(46,75%,62%)"/>
+<text x="749.2" y="417">_ba…</text>
+<rect x="748.5" y="366" width="37.8" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="748.5" y="336" width="18.1" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="749.7" y="306" width="15.7" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="749.7" y="276" width="14.6" height="28" fill="hsl(10,75%,62%)"/>
+<rect x="749.7" y="246" width="12.3" height="28" fill="hsl(10,75%,62%)"/>
+<rect x="749.7" y="216" width="11.1" height="28" fill="hsl(10,75%,62%)"/>
+<rect x="749.7" y="186" width="11.1" height="28" fill="hsl(10,75%,62%)"/>
+<rect x="767.1" y="336" width="14.6" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="815.9" y="486" width="8.8" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="815.9" y="456" width="4.1" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="820.5" y="456" width="3.0" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="820.5" y="426" width="3.0" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="825.1" y="486" width="153.9" height="28" fill="hsl(50,75%,66%)"/>
+<text x="828.1" y="507">scatter_chunk…</text>
+<rect x="825.1" y="456" width="152.7" height="28" fill="hsl(56,75%,72%)"/>
+<text x="828.1" y="477">NDBuffer.__se…</text>
+<rect x="991.1" y="546" width="141.1" height="28" fill="hsl(39,75%,67%)"/>
+<text x="994.1" y="567">ShardingCode…</text>
+<rect x="992.3" y="516" width="4.1" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="996.9" y="516" width="7.6" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="996.9" y="486" width="7.6" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="999.2" y="456" width="4.1" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1005.0" y="516" width="5.3" height="28" fill="hsl(47,75%,63%)"/>
+<rect x="1012.0" y="516" width="4.1" height="28" fill="hsl(56,75%,72%)"/>
+<rect x="1016.6" y="516" width="11.1" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="1017.8" y="486" width="7.6" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="1028.2" y="516" width="6.5" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1035.2" y="516" width="69.1" height="28" fill="hsl(39,75%,67%)"/>
+<text x="1038.2" y="537">Shard…</text>
+<rect x="1035.2" y="486" width="25.0" height="28" fill="hsl(64,75%,68%)"/>
+<rect x="1035.2" y="456" width="25.0" height="28" fill="hsl(26,75%,66%)"/>
+<rect x="1036.4" y="426" width="23.9" height="28" fill="hsl(43,75%,71%)"/>
+<rect x="1036.4" y="396" width="4.1" height="28" fill="hsl(28,75%,68%)"/>
+<rect x="1036.4" y="366" width="3.0" height="28" fill="hsl(28,75%,68%)"/>
+<rect x="1041.0" y="396" width="18.1" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="1041.0" y="366" width="15.7" height="28" fill="hsl(10,75%,62%)"/>
+<rect x="1042.2" y="336" width="6.5" height="28" fill="hsl(13,75%,65%)"/>
+<rect x="1049.1" y="336" width="7.6" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1051.5" y="306" width="5.3" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1060.7" y="486" width="43.6" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1061.9" y="456" width="19.2" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1061.9" y="426" width="19.2" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1063.1" y="396" width="8.8" height="28" fill="hsl(50,75%,66%)"/>
+<rect x="1063.1" y="366" width="4.1" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="1067.7" y="366" width="3.0" height="28" fill="hsl(14,75%,66%)"/>
+<rect x="1072.3" y="396" width="6.5" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1072.3" y="366" width="6.5" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="1072.3" y="336" width="6.5" height="28" fill="hsl(50,75%,66%)"/>
+<rect x="1072.3" y="306" width="3.0" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="1081.6" y="456" width="21.6" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1082.8" y="426" width="4.1" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="1082.8" y="396" width="3.0" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="1087.4" y="426" width="13.4" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1087.4" y="396" width="8.8" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="1088.6" y="366" width="6.5" height="28" fill="hsl(24,75%,64%)"/>
+<rect x="1090.9" y="336" width="3.0" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="1090.9" y="306" width="3.0" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="1104.8" y="516" width="4.1" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1106.0" y="486" width="3.0" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1110.6" y="516" width="16.9" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="1110.6" y="486" width="5.3" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="1111.8" y="456" width="3.0" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="1116.4" y="486" width="4.1" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="1116.4" y="456" width="4.1" height="28" fill="hsl(45,75%,73%)"/>
+<rect x="1116.4" y="426" width="4.1" height="28" fill="hsl(23,75%,63%)"/>
+<rect x="1132.7" y="546" width="6.5" height="28" fill="hsl(51,75%,67%)"/>
+<rect x="1132.7" y="516" width="6.5" height="28" fill="hsl(51,75%,67%)"/>
+<rect x="1132.7" y="486" width="6.5" height="28" fill="hsl(51,75%,67%)"/>
+<rect x="1139.7" y="546" width="3.0" height="28" fill="hsl(51,75%,67%)"/>
+<rect x="1143.1" y="546" width="8.8" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1143.1" y="516" width="8.8" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1143.1" y="486" width="5.3" height="28" fill="hsl(69,75%,73%)"/>
+<rect x="1143.1" y="456" width="5.3" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1144.3" y="426" width="3.0" height="28" fill="hsl(39,75%,67%)"/>
+<rect x="1152.4" y="546" width="474.2" height="28" fill="hsl(46,75%,62%)"/>
+<text x="1155.4" y="567">_noop_for_none.&lt;locals&gt;.wrap (codec.py) 26%</text>
+<rect x="1152.4" y="516" width="5.3" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="1152.4" y="486" width="5.3" height="28" fill="hsl(25,75%,65%)"/>
+<rect x="1158.2" y="516" width="457.9" height="28" fill="hsl(60,75%,64%)"/>
+<text x="1161.2" y="537">VLenUTF8Codec._decode_single (vlen_utf8.py)</text>
+<rect x="1158.2" y="486" width="415.0" height="28" fill="hsl(60,75%,64%)"/>
+<text x="1161.2" y="507">VLenUTF8Codec._decode_sync (vlen_utf8.py)</text>
+<rect x="1158.2" y="456" width="6.5" height="28" fill="hsl(21,75%,73%)"/>
+<rect x="1616.6" y="516" width="9.9" height="28" fill="hsl(49,75%,65%)"/>
+<rect x="1616.6" y="486" width="8.8" height="28" fill="hsl(55,75%,71%)"/>
+<rect x="1616.6" y="456" width="8.8" height="28" fill="hsl(10,75%,62%)"/>
+<rect x="1616.6" y="426" width="7.6" height="28" fill="hsl(13,75%,65%)"/>
+<rect x="1650.3" y="576" width="7.6" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1658.4" y="576" width="12.3" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1658.4" y="546" width="6.5" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1658.4" y="516" width="3.0" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1665.4" y="546" width="4.1" height="28" fill="hsl(58,75%,62%)"/>
+<rect x="1665.4" y="516" width="4.1" height="28" fill="hsl(10,75%,62%)"/>
+</svg>
