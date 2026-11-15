@@ -5,7 +5,7 @@ import sys
 
 import pandas as pd
 
-src = sys.argv[1] if len(sys.argv) > 1 else "results/spike/bench-44.jsonl"
+src = sys.argv[1] if len(sys.argv) > 1 else "results/spike/bench-103.jsonl"
 df = pd.read_json(src, lines=True)
 df = df[df.status == "ok"]
 df["shape"] = df["shape"].where(df["label"].isna(), df["shape"] + ":" + df["label"].astype(str))

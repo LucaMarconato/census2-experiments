@@ -32,14 +32,15 @@ floci/start.sh                                      # floci (Docker), uploads em
 uv run python bench.py && uv run python table.py    # results/bench.md
 uv run python consistency.py local-small emu-small floci-small
 uv run python scaling.py && uv run python scaling_plot.py   # time vs number of stores
-sudo ./profile.sh && ./render_profiles.sh           # py-spy flamegraphs
+sudo ./profile.sh && ./render_profiles.sh           # py-spy flamegraphs (SVG)
 uv run python parent_zarr.py && floci/upload-parent.sh
 uv run python icechunk_bench.py build && uv run python icechunk_bench.py bench
 ./latency_bench.sh 10 50                            # floci behind latency_proxy.py
 uv run --project spike python spike/fragments.py data/zarr && spike/bench.sh   # Iceberg, DuckDB
+spike/bench-4g.sh                                   # spike paths on the 4g set, vs Icechunk
 ```
 
-Emulators bind to 127.0.0.1 only, telemetry and update checks off. AWS Emulator caps a bucket at 64 MiB, so each store has its own bucket.
+`-ext` results ran on an external USB SSD with all 103 stores; the others (backend consistency, profiles, spike on 4g) on the internal SSD. Emulators bind to 127.0.0.1 only, telemetry and update checks off. AWS Emulator caps a bucket at 64 MiB, so each store has its own bucket.
 
 ## License
 
