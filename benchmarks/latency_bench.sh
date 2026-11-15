@@ -7,14 +7,14 @@
 # plus one counted run, each a new process), then the proxy stops.
 # Writes <results>/icechunk/bench-latency.jsonl anew, label +<ms>ms. SHAPES, REPEATS (3) and WORKERS (8) override.
 set -e
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 eval "$(python config.py)"
 OUT=$RESULTS/icechunk/bench-latency.jsonl
 rm -f "$OUT"
 for ms in ${@:-10 50}; do
-  python latency_proxy.py --listen 4567 --target 4566 --delay-ms $ms & P=$!
+  python benchmarks/latency_proxy.py --listen 4567 --target 4566 --delay-ms $ms & P=$!
   sleep 1  # the proxy starts in the background: give it time to listen before the bench connects
-  python -W ignore icechunk_bench.py bench --where floci --endpoint http://127.0.0.1:4567 --label "+${ms}ms" \
+  python -W ignore benchmarks/icechunk_bench.py bench --where floci --endpoint http://127.0.0.1:4567 --label "+${ms}ms" \
     --shapes ${SHAPES:-open,count_cell_type,corpus_obs} --workers ${WORKERS:-8} --repeats ${REPEATS:-3} --out "$OUT" --append
   kill $P
 done

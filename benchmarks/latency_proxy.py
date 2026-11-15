@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """TCP proxy on 127.0.0.1 that delays each HTTP request by a fixed time, to mimic S3 latency.
 
-    python3 latency_proxy.py --listen 4567 --target 4566 --delay-ms 10
+    python benchmarks/latency_proxy.py --listen 4567 --target 4566 --delay-ms 10
 """
 
 import argparse

@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 """Median seconds of the spike head-to-head, stores vs Iceberg table vs DuckDB: <results>/spike/bench.md."""
 
-import sys
-from pathlib import Path
-
 import pandas as pd
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from config import RESULTS  # noqa: E402
+from config import RESULTS
 
 src = RESULTS / "spike/bench.jsonl"
 df = pd.read_json(src, lines=True)

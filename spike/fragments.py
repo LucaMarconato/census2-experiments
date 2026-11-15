@@ -7,7 +7,6 @@ in the store's attributes, for every store in <data>/zarr. spike/bench.sh builds
 and queries DuckDB over these. Runs in the spike env.
 """
 
-import sys
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
@@ -17,8 +16,7 @@ import zarr
 from anndata.io import read_elem
 from census2_dataset_writer.store_format import FRAGMENT_KEY, SUMMARY_NAMESPACE
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from config import DATA  # noqa: E402
+from config import DATA
 
 
 def one(store: Path) -> str:

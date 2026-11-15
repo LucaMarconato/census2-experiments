@@ -11,9 +11,8 @@ from concurrent.futures import ThreadPoolExecutor
 from itertools import accumulate
 from pathlib import Path
 
-from config import H5AD
+from config import H5AD, HERE
 
-HERE = Path(__file__).parent
 MANIFESTS = sorted((HERE / "ext/cellxgene-census2-prototype/bulk-ingest-nf/manifests").glob("*.jsonl"), key=lambda m: "harness" not in m.name)
 
 

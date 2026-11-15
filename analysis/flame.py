@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Flamegraph SVG and hot-frame summary from py-spy raw (collapsed) stacks. No dependencies.
 
-    python3 flame.py results/profiles/local-all-corpus_x-w8.txt --focus 'decode' -o zoom.svg
-    python3 flame.py results/profiles/local-all-corpus_x-w8.txt --top 15
+    python analysis/flame.py results/profiles/local-all-corpus_x-w8.txt --focus 'decode' -o zoom.svg
+    python analysis/flame.py results/profiles/local-all-corpus_x-w8.txt --top 15
 """
 
 import argparse

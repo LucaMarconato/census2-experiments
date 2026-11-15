@@ -8,7 +8,7 @@ SDK opens, so each size N gets its own: catalog-N.parquet = the first N rows of 
 catalog (floci: of the floci-4GB catalog, plus its full size). Writes <results>/scaling/bench.jsonl
 (anew).
 
-    python scaling.py --sizes 5,10,20,44,103,200,500,1000,2000 --floci-sizes 5,10
+    python benchmarks/scaling.py --sizes 5,10,20,44,103,200,500,1000,2000 --floci-sizes 5,10
 """
 
 import argparse

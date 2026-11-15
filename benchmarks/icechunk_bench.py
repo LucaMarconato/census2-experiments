@@ -9,8 +9,8 @@ bench: open / corpus_obs / corpus_x / single over the repo, over the plain store
 one parent Zarr store with consolidated metadata (parent_zarr.py),
 one new process per run. Writes --out (default <results>/icechunk/bench-<where>.jsonl), anew unless --append.
 
-    python icechunk_bench.py build --where local
-    python icechunk_bench.py bench --where local --shapes open,corpus_obs,corpus_x
+    python benchmarks/icechunk_bench.py build --where local
+    python benchmarks/icechunk_bench.py bench --where local --shapes open,corpus_obs,corpus_x
 """
 
 import argparse

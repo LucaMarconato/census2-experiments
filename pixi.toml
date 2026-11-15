@@ -22,6 +22,9 @@ census2-dataset-writer = { path = "ext/spike-obs/census2-dataset-writer", editab
 census2-sdk = { path = "ext/spike-obs/census2-sdk", editable = true, extras = ["s3", "iceberg", "duckdb"] }
 pyiceberg = { version = "*", extras = ["pyarrow", "sql-sqlite"] }
 
+[activation.env]
+PYTHONPATH = "$PIXI_PROJECT_ROOT"  # config.py, from any folder
+
 [environments]
 default = { features = ["main"], solve-group = "main" }
 spike = { features = ["spike"], solve-group = "spike" }
@@ -35,7 +38,7 @@ spike = { features = ["spike"], solve-group = "spike" }
 description = "Source h5ads of the prototype's manifests (tiny: the 3 smallest). Resumable"
 args = [{ arg = "profile", default = "real" }]
 env = { C2E_PROFILE = "{{ profile }}" }
-cmd = "python download.py {% if profile == 'tiny' %}--smallest 3{% endif %}"
+cmd = "python prep/download.py {% if profile == 'tiny' %}--smallest 3{% endif %}"
 
 [tasks.refdata]
 description = "The writer's pinned gene references (GENCODE), via aria2c"
@@ -48,7 +51,7 @@ description = "h5ad -> Census 2 Zarr stores in <data>/zarr; the 4GB store set (f
 args = [{ arg = "profile", default = "real" }]
 env = { C2E_PROFILE = "{{ profile }}" }
 depends-on = [{ task = "download", args = ["{{ profile }}"] }, { task = "refdata", args = ["{{ profile }}"] }]
-cmd = "python subset.py all --source h5ad && python convert.py && python subset.py 4GB --from all --max-gib 4 --fill"
+cmd = "python prep/subset.py all --source h5ad && python prep/convert.py && python prep/subset.py 4GB --from all --max-gib 4 --fill"
 
 [tasks.floci]
 description = "Start floci (local S3) in Docker and upload the 4GB set"
@@ -62,45 +65,45 @@ description = "The prototype's benchmark on local-all, local-4GB, floci-4GB; tab
 args = [{ arg = "profile", default = "real" }]
 env = { C2E_PROFILE = "{{ profile }}" }
 depends-on = [{ task = "floci", args = ["{{ profile }}"] }]
-cmd = "python bench.py {% if profile == 'tiny' %}--shapes open --workers 8 --repeats 1{% endif %} && python table.py"
+cmd = "python benchmarks/bench.py {% if profile == 'tiny' %}--shapes open --workers 8 --repeats 1{% endif %} && python analysis/table.py"
 
 [tasks.consistency]
 description = "Same results on local disk and floci"
 args = [{ arg = "profile", default = "real" }]
 env = { C2E_PROFILE = "{{ profile }}" }
 depends-on = [{ task = "bench", args = ["{{ profile }}"] }]
-cmd = "python consistency.py local-4GB floci-4GB"
+cmd = "python benchmarks/consistency.py local-4GB floci-4GB"
 
 [tasks.scaling]
 description = "Time vs number of stores (symlinked copies past the real ones); table and plot"
 args = [{ arg = "profile", default = "real" }]
 env = { C2E_PROFILE = "{{ profile }}" }
 depends-on = [{ task = "floci", args = ["{{ profile }}"] }]
-cmd = "python scaling.py {% if profile == 'tiny' %}--sizes 1,12 --floci-sizes 1 --shapes open --repeats 1{% else %}--sizes 5,10,20,44,103,200,500,1000,2000 --floci-sizes 5,10{% endif %} && python scaling_plot.py"
+cmd = "python benchmarks/scaling.py {% if profile == 'tiny' %}--sizes 1,12 --floci-sizes 1 --shapes open --repeats 1{% else %}--sizes 5,10,20,44,103,200,500,1000,2000 --floci-sizes 5,10{% endif %} && python analysis/scaling_plot.py"
 
 [tasks.icechunk]
 description = "Separate stores vs one parent Zarr store vs Icechunk, local and floci"
 args = [{ arg = "profile", default = "real" }]
 env = { C2E_PROFILE = "{{ profile }}" }
 depends-on = [{ task = "floci", args = ["{{ profile }}"] }]
-cmd = """python parent_zarr.py && sh floci/upload-parent.sh \
-  && python icechunk_bench.py build --where local && python icechunk_bench.py build --where floci \
-  && python -W ignore icechunk_bench.py bench --where local {% if profile == 'tiny' %}--shapes open --repeats 1{% endif %} \
-  && python -W ignore icechunk_bench.py bench --where floci {% if profile == 'tiny' %}--shapes open --repeats 1{% endif %}"""
+cmd = """python benchmarks/parent_zarr.py && sh floci/upload-parent.sh \
+  && python benchmarks/icechunk_bench.py build --where local && python benchmarks/icechunk_bench.py build --where floci \
+  && python -W ignore benchmarks/icechunk_bench.py bench --where local {% if profile == 'tiny' %}--shapes open --repeats 1{% endif %} \
+  && python -W ignore benchmarks/icechunk_bench.py bench --where floci {% if profile == 'tiny' %}--shapes open --repeats 1{% endif %}"""
 
 [tasks.latency]
 description = "The Icechunk comparison on floci with +10 and +50 ms per request"
 args = [{ arg = "profile", default = "real" }]
 env = { C2E_PROFILE = "{{ profile }}", SHAPES = "{% if profile == 'tiny' %}open{% endif %}", REPEATS = "{% if profile == 'tiny' %}1{% else %}3{% endif %}" }
 depends-on = [{ task = "icechunk", args = ["{{ profile }}"] }]
-cmd = "sh latency_bench.sh {% if profile == 'tiny' %}10{% else %}10 50{% endif %}"
+cmd = "sh benchmarks/latency_bench.sh {% if profile == 'tiny' %}10{% else %}10 50{% endif %}"
 
 [tasks.profiles]
 description = "py-spy flamegraphs of the X, obs and cell-type reads (asks for sudo: py-spy needs root on macOS)"
 args = [{ arg = "profile", default = "real" }]
 env = { C2E_PROFILE = "{{ profile }}" }
 depends-on = [{ task = "bench", args = ["{{ profile }}"] }]
-cmd = "sh -c 'sudo C2E_PROFILE=$C2E_PROFILE PY=\"$(command -v python)\" sh profile.sh' && sh render_profiles.sh"
+cmd = "sh -c 'sudo C2E_PROFILE=$C2E_PROFILE PY=\"$(command -v python)\" sh benchmarks/profile.sh' && sh analysis/render_profiles.sh"
 
 [tasks.all]
 description = "Every benchmark (all but profiles, which needs sudo)"
@@ -121,4 +124,4 @@ description = "Spike: obs fragments, then stores vs Iceberg vs DuckDB over all s
 args = [{ arg = "profile", default = "real" }]
 env = { C2E_PROFILE = "{{ profile }}", SHAPES = "{% if profile == 'tiny' %}single{% endif %}", REPEATS = "{% if profile == 'tiny' %}1{% else %}3{% endif %}" }
 depends-on = [{ task = "convert", args = ["{{ profile }}"], environment = "default" }]
-cmd = "python spike/fragments.py && sh spike/bench.sh && python spike/table.py"
+cmd = "python spike/fragments.py && sh spike/bench.sh && python analysis/spike_table.py"

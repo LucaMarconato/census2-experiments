@@ -6,7 +6,7 @@
    must match across backends.
 Prints the report and writes it to <results>/consistency-<stores>.txt.
 
-    python consistency.py local-4GB floci-4GB
+    python benchmarks/consistency.py local-4GB floci-4GB
 """
 
 import os

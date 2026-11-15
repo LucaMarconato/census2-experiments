@@ -3,7 +3,7 @@
 # and shape, in <results>/profiles. py-spy needs root on macOS: run via `pixi run profiles` (sudo).
 # Runs from the prototype's tools dir: the repo's own bench.py would shadow its bench package.
 set -e
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 R=$PWD
 PY=${PY:-python}
 eval "$($PY config.py)"

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Write <subsets>/NAME.jsonl: the finished h5ads or Zarr stores of a manifest, in order, up to a size cap.
 
-    python subset.py all --source h5ad                       # every downloaded h5ad
-    python subset.py 4GB --from all --max-gib 4 --fill       # stores that fit in 4 GiB
+    python prep/subset.py all --source h5ad                       # every downloaded h5ad
+    python prep/subset.py 4GB --from all --max-gib 4 --fill       # stores that fit in 4 GiB
 """
 
 import argparse

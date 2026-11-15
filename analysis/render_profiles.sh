@@ -1,10 +1,10 @@
 #!/bin/sh
 # Flamegraph SVGs from profile.sh's raw stacks (flame.py), in <results>/profiles. No GUI app opens.
 set -e
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 eval "$(python config.py)"
 P=$RESULTS/profiles
-f() { python flame.py "$P/$1.txt" $3 --title "$2" -o "$P/$4.svg"; }
+f() { python analysis/flame.py "$P/$1.txt" $3 --title "$2" -o "$P/$4.svg"; }
 B="share of busy thread samples, idle waits removed"
 f local-all-corpus_x-w8     "corpus_x: all X, local disk, 8 workers. $B" --no-idle flame-local-corpus_x
 f local-all-corpus_obs-w8   "corpus_obs: all obs, local disk, 8 workers. $B" --no-idle flame-local-corpus_obs
