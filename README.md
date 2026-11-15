@@ -7,23 +7,7 @@ Claude (Anthropic) was used to run the benchmarks and present the results.
 
 ## Overview
 
-```mermaid
-flowchart LR
-  M[prototype manifests] --> D[download.py] --> H[(h5ad)]
-  R[stage-refdata.py] --> G[(GENCODE refs)]
-  H --> S[subset.py] --> C[convert.py]
-  G --> C
-  C --> Z[(data/zarr: one store per dataset)]
-  Z --> L[local disk]
-  Z --> E[emulator/, floci/: local S3]
-  Z --> P[parent_zarr.py, icechunk_bench.py]
-  Z --> F[spike/fragments.py: Iceberg, DuckDB]
-  L & E --> B[bench.py, scaling.py, consistency.py, profile.sh]
-  E --> X[latency_proxy.py]
-  P & X --> I[icechunk_bench.py, latency_bench.sh]
-  F --> SB[spike/bench.sh]
-  B & I & SB --> O[(results/)]
-```
+![Overview](docs/overview.svg)
 
 ## Data
 
