@@ -12,7 +12,7 @@ if ! docker ps -q -f name=census2-floci | grep -q .; then
     -e FLOCI_STORAGE_MODE=persistent -v "$(cd data/floci && pwd -P):/app/data" $IMAGE
 fi
 until curl -sf http://127.0.0.1:4566/_floci/health >/dev/null; do sleep 1; done
-for id in $(python3 -c "import json,sys; [print(json.loads(l)['dataset_version_id']) for m in sys.argv[1:] for l in open(m)]" ${@:-subsets/emu-small.jsonl subsets/4g.jsonl} | sort -u); do
+for id in $(python3 -c "import json,sys; [print(json.loads(l)['dataset_version_id']) for m in sys.argv[1:] for l in open(m)]" ${@:-subsets/emu-small.jsonl subsets/4GB.jsonl} | sort -u); do
   aws s3 mb s3://s-$id >/dev/null 2>&1 || true
   aws s3 sync --only-show-errors data/zarr/$id.zarr s3://s-$id/$id.zarr
 done

@@ -10,7 +10,7 @@ from pathlib import Path
 import zarr
 
 HERE = Path(__file__).parent.resolve()
-manifest = Path(sys.argv[1] if len(sys.argv) > 1 else HERE / "subsets/4g.jsonl")
+manifest = Path(sys.argv[1] if len(sys.argv) > 1 else HERE / "subsets/4GB.jsonl")
 parent = HERE / "data/parent.zarr"
 zarr.open_group(str(parent), mode="w")
 for line in manifest.open():

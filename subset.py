@@ -26,7 +26,7 @@ def main() -> None:
     p.add_argument("--from", dest="src", type=Path, nargs="*", default=MANIFESTS)
     p.add_argument("--max-store-mib", type=float, help="skip larger stores")
     p.add_argument("--fill", action="store_true", help="skip what does not fit, do not stop")
-    p.add_argument("--out", type=Path, default=Path("subsets/50g.jsonl"))
+    p.add_argument("--out", type=Path, default=Path("subsets/50GB.jsonl"))
     a = p.parse_args()
 
     ext = ".zarr" if any(a.dir.glob("*.zarr")) else ".h5ad"

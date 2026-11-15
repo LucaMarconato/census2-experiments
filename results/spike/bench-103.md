@@ -1,4 +1,4 @@
-| shape                |   workers | cells    |   stores |   iceberg |   duckdb |   stores/duckdb |
+| query                |   workers | cells    |   stores |   iceberg |   duckdb |   stores/duckdb |
 |:---------------------|----------:|:---------|---------:|----------:|---------:|----------------:|
 | cell_type            |         1 | 35795    |     2.92 |      1.68 |     1.61 |            1.82 |
 | cell_type            |         8 | 35795    |     2.67 |      1.87 |     1.64 |            1.63 |

@@ -23,7 +23,7 @@ t = (
     .reset_index()
     .astype({"stores": int, "cells": int, "requests": int})
 )
-md = t.to_markdown(index=False, floatfmt=".2f", intfmt=",")
+md = t.rename(columns={"shape": "query"}).to_markdown(index=False, floatfmt=".2f", intfmt=",")
 if bad := len(df) - len(ok):
     md += f"\n\n{bad} runs not ok: " + ", ".join(df.loc[df.status != "ok", "status"].unique())
 out = src.with_suffix(".md")

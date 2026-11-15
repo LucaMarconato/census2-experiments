@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check that local disk, AWS Emulator and floci return identical data for the same stores.
 
-1. results/bench.jsonl: per shape and workers, the same stores, cells, requests and MB.
+1. results/bench.jsonl: per query and workers, the same stores, cells, requests and MB.
 2. get_anndata of one cell type in a fresh process per backend (CHILD): SHA-256 of obs, var and X
    must match across backends.
 
@@ -44,14 +44,14 @@ def main() -> int:
     df = df[df["where"].isin(sets) & (df["status"] == "ok")]
     ok = True
     print("1. bench records (distinct values across repeats and sets)")
-    for (shape, workers), g in df.groupby(["shape", "workers"]):
+    for (query, workers), g in df.groupby(["shape", "workers"]):  # upstream field name
         vals = {k: sorted(g[k].unique().tolist()) for k in KEYS}
         same = all(len(v) == 1 for v in vals.values())
-        ok &= same or shape == "x"
+        ok &= same or query == "x"
         flag = "same" if same else "DIFF " + str(
             g.groupby("where")[KEYS].agg(lambda s: sorted(s.unique().tolist())).to_dict("index")
         )
-        print(f"  {shape:<10} w={workers:<3} {flag}")
+        print(f"  {query:<10} w={workers:<3} {flag}")
 
     print("2. get_anndata(cell_type): cell type, n_obs, n_vars, sha256 of obs, var, X")
     outs = {}

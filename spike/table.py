@@ -14,6 +14,6 @@ t = t[["stores", "table", "sql"]].rename(columns={"table": "iceberg", "sql": "du
 t["stores/duckdb"] = t["stores"] / t["duckdb"]
 cells = df[df.via == "stores"].groupby(["shape", "workers"])["cells"].median().astype("Int64")
 t.insert(0, "cells", cells)
-md = t.reset_index().to_markdown(index=False, floatfmt=".2f", intfmt=",")
+md = t.reset_index().rename(columns={"shape": "query"}).to_markdown(index=False, floatfmt=".2f", intfmt=",")
 open(src.replace(".jsonl", ".md"), "w").write(md + "\n")
 print(md)

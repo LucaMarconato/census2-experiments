@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Benchmark shapes against the number of stores N, on local disk (and floci for small N).
+"""Benchmark queries against the number of stores N, on local disk (and floci for small N).
 
 Real stores up to all of data/zarr; beyond that, the prototype's copy method (bench.catalogs):
 copy k of a store is a symlink data/copies/cKK/<id>.zarr -> data/zarr/<id>.zarr, with its own
 dataset_id in the catalog, so it costs no disk. The catalog (one Parquet row per store) is what the
 SDK opens, so each size N gets its own: catalog-N.parquet = the first N rows of the expanded
-catalog (floci: of the floci-4g catalog). Appends to results/scaling/bench.jsonl.
+catalog (floci: of the floci-4GB catalog). Appends to results/scaling/bench.jsonl.
 
     uv run python scaling.py --sizes 5,10,20,44,93,200,500,1000,2000
 """
@@ -32,7 +32,7 @@ OUT = HERE / "results/scaling"
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--sizes", default="5,10,20,44,103,200,500,1000,2000")
-    p.add_argument("--shapes", default="single,cell_type,open,corpus_obs")
+    p.add_argument("--queries", default="single,cell_type,open,corpus_obs")
     p.add_argument("--workers", default="8,32")
     p.add_argument("--repeats", type=int, default=2)
     p.add_argument("--floci-sizes", default="5,10,21")
@@ -61,8 +61,8 @@ def main() -> int:
     for n in sizes:
         rows.head(n).to_parquet(cats / f"catalog-{n}.parquet")
 
-    # floci: prefixes of the floci-4g catalog
-    fcat = pd.read_parquet(catalog("floci-4g", {**os.environ, **backend_env("floci")}))
+    # floci: prefixes of the floci-4GB catalog
+    fcat = pd.read_parquet(catalog("floci-4GB", {**os.environ, **backend_env("floci")}))
     fsizes = [int(s) for s in a.floci_sizes.split(",") if int(s) <= len(fcat)]
     fcats = OUT / "catalogs-floci"
     fcats.mkdir(parents=True, exist_ok=True)
@@ -76,7 +76,7 @@ def main() -> int:
         env = {**os.environ, **backend_env(where), "PYTHONPATH": str(TOOLS)}
         subprocess.run(
             [sys.executable, "-m", "bench.matrix", "--catalogs", d, "--sizes", ",".join(map(str, ns)),
-             "--shapes", a.shapes, "--workers", a.workers, "--repeats", str(a.repeats),
+             "--shapes", a.queries, "--workers", a.workers, "--repeats", str(a.repeats),
              "--where", f"{where}-scaling{a.suffix}", "--out", OUT / a.out],
             check=True, env=env, cwd=TOOLS,
         )  # fmt: skip

@@ -26,10 +26,10 @@ uv run python convert.py subsets/all.jsonl   # h5ad -> Census 2 Zarr in data/zar
 ## Benchmarks
 
 ```bash
-uv run python subset.py data/zarr --max-gib 4 --fill --from subsets/50g.jsonl --out subsets/4g.jsonl   # 4g: 21 stores, 4 GiB of Zarr, the S3 / Icechunk set
-uv run python subset.py data/zarr --max-gib 0.117 --fill --max-store-mib 60 --from subsets/50g.jsonl --out subsets/emu-small.jsonl
+uv run python subset.py data/zarr --max-gib 4 --fill --from subsets/50GB.jsonl --out subsets/4GB.jsonl   # 4GB: 21 stores, 4 GiB of Zarr, the S3 / Icechunk set
+uv run python subset.py data/zarr --max-gib 0.117 --fill --max-store-mib 60 --from subsets/50GB.jsonl --out subsets/emu-small.jsonl
 emulator/start.sh                                   # AWS Emulator (Docker), uploads emu-small
-floci/start.sh                                      # floci (Docker), uploads emu-small + 4g
+floci/start.sh                                      # floci (Docker), uploads emu-small + 4GB
 uv run python bench.py && uv run python table.py    # results/bench.md
 uv run python consistency.py local-small emu-small floci-small
 uv run python scaling.py && uv run python scaling_plot.py   # time vs number of stores
@@ -38,7 +38,7 @@ uv run python parent_zarr.py && floci/upload-parent.sh
 uv run python icechunk_bench.py build && uv run python icechunk_bench.py bench
 ./latency_bench.sh 10 50                            # floci behind latency_proxy.py
 uv run --project spike python spike/fragments.py data/zarr && spike/bench.sh   # Iceberg, DuckDB
-spike/bench-4g.sh                                   # spike paths on the 4g set, vs Icechunk
+spike/bench-4GB.sh                                   # spike paths on the 4GB set, vs Icechunk
 ```
 
 Results in `results/` ran on an external USB SSD with all 103 stores. Emulators bind to 127.0.0.1 only, telemetry and update checks off. AWS Emulator caps a bucket at 64 MiB, so each store has its own bucket.

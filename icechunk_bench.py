@@ -9,7 +9,7 @@ one parent Zarr store with consolidated metadata (parent_zarr.py),
 one new process per run. Appends to results/icechunk/bench.jsonl.
 
     uv run python icechunk_bench.py build --where local
-    uv run python icechunk_bench.py bench --where local --shapes open,corpus_obs,corpus_x
+    uv run python icechunk_bench.py bench --where local --queries open,corpus_obs,corpus_x
 """
 
 import argparse
@@ -24,7 +24,7 @@ from pathlib import Path
 
 HERE = Path(__file__).parent.resolve()
 OUT = HERE / "results/icechunk/bench.jsonl"
-TAG = "release-4g"
+TAG = "release-4g"  # tag name of the existing Icechunk repo
 
 
 def storage(where: str):
@@ -99,7 +99,7 @@ def base_store(backend: str, where: str, dvid: str | None = None):
     return zarr.storage.ObjectStore(obstore.store.from_url(url), read_only=True)
 
 
-def run(backend: str, where: str, shape: str, workers: int, manifest: Path, count: bool = False) -> dict:
+def run(backend: str, where: str, query: str, workers: int, manifest: Path, count: bool = False) -> dict:
     """One run. With `count`, wrap the store to count reads (slower: a timed run does not count)."""
     import zarr
     from anndata.io import read_elem
@@ -123,11 +123,11 @@ def run(backend: str, where: str, shape: str, workers: int, manifest: Path, coun
             g = root[dvid]
         else:
             g = zarr.open_group(wrap(base_store(backend, where, dvid)), mode="r")
-        if shape == "open":
+        if query == "open":
             return 0
-        if shape == "corpus_obs":
+        if query == "corpus_obs":
             return len(read_elem(g["obs"]))
-        if shape == "count_cell_type":  # an obs filter: no pushdown, so read the column and test it
+        if query == "count_cell_type":  # an obs filter: no pushdown, so read the column and test it
             col = read_elem(g["obs"]["cell_type"])
             return int((col == "neutrophil").sum())
         x = g["X"]
@@ -139,11 +139,11 @@ def run(backend: str, where: str, shape: str, workers: int, manifest: Path, coun
                 a[start : start + step]
         return rows
 
-    pick = stores[:1] if shape == "single" else stores
+    pick = stores[:1] if query == "single" else stores
     with ThreadPoolExecutor(workers) as pool:
         cells = sum(pool.map(one, pick))
     peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 2**20
-    return {"backend": backend, "where": where, "shape": shape, "workers": workers,
+    return {"backend": backend, "where": where, "shape": query, "workers": workers,
             "stores": len(pick), "cells": cells, "open_seconds": round(t1 - t0, 3),
             "query_seconds": round(time.monotonic() - t1, 3), "peak_rss_mb": round(peak, 1),
             **({"requests_open": opened, "requests": counter.requests, "mb": round(counter.nbytes / 2**20, 2)} if count else {}),
@@ -154,8 +154,8 @@ def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("cmd", choices=["build", "bench", "one"])
     p.add_argument("--where", default="local", choices=["local", "floci"])
-    p.add_argument("--manifest", type=Path, default=HERE / "subsets/4g.jsonl")
-    p.add_argument("--shapes", default="open,single,corpus_obs,corpus_x")
+    p.add_argument("--manifest", type=Path, default=HERE / "subsets/4GB.jsonl")
+    p.add_argument("--queries", default="open,single,corpus_obs,corpus_x")
     p.add_argument("--workers", default="1,8")
     p.add_argument("--repeats", type=int, default=3)
     p.add_argument("--backend", default="icechunk")
@@ -173,15 +173,15 @@ def main() -> int:
     if a.cmd == "build":
         build(a.where, a.manifest)
     elif a.cmd == "one":
-        print(json.dumps(run(a.backend, a.where, a.shapes, int(a.workers), a.manifest, a.count)))
+        print(json.dumps(run(a.backend, a.where, a.queries, int(a.workers), a.manifest, a.count)))
     else:
         a.out.parent.mkdir(parents=True, exist_ok=True)
-        for shape in a.shapes.split(","):
+        for query in a.queries.split(","):
             for w in a.workers.split(","):
                 for backend in a.backends.split(","):
                     for r in range(a.repeats + 1):
                         cmd = [sys.executable, __file__, "one", "--backend", backend, "--where", a.where,
-                               "--shapes", shape, "--workers", w, "--manifest", str(a.manifest)]  # fmt: skip
+                               "--queries", query, "--workers", w, "--manifest", str(a.manifest)]  # fmt: skip
                         if a.endpoint:
                             cmd += ["--endpoint", a.endpoint]
                         if r == a.repeats:  # the last run counts reads; it is not timed
@@ -192,7 +192,7 @@ def main() -> int:
                         rec["label"] = a.label
                         with a.out.open("a") as fh:
                             fh.write(json.dumps(rec) + "\n")
-                        print(shape, w, backend, r, rec["query_seconds"], flush=True)
+                        print(query, w, backend, r, rec["query_seconds"], flush=True)
     return 0
 
 
