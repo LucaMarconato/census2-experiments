@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
-"""Time vs number of stores: results/scaling/<name>.md and .svg (log-log, no plotting library)."""
+"""Time vs number of stores, from scaling.py's records (results/scaling/<name>.jsonl).
+
+Takes the 8-worker runs, median query_seconds per where x size x shape:
+- <name>.md: that table, plus one of median requests.
+- <name>.svg: log-log plot, x = number of stores (5 to 2,000), y = seconds. Solid lines: local
+  disk (corpus_obs, open, single); dashed: floci S3 (corpus_obs, open, up to 21 stores).
+  Past the real stores the points are symlinked copies. Plain SVG, no plotting library.
+
+    uv run python scaling_plot.py bench-ext
+"""
 
 import math
 import sys

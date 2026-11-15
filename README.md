@@ -34,7 +34,7 @@ emulator/start.sh                                   # AWS Emulator (Docker), upl
 floci/start.sh                                      # floci (Docker), uploads emu-small + 4GB
 uv run python bench.py && uv run python table.py    # results/bench.md
 uv run python consistency.py local-small emu-small floci-small
-uv run python scaling.py && uv run python scaling_plot.py   # time vs number of stores
+uv run python scaling.py && uv run python scaling_plot.py   # time vs number of stores: table + log-log SVG
 sudo ./profile.sh && ./render_profiles.sh           # py-spy flamegraphs (SVG)
 uv run python parent_zarr.py && floci/upload-parent.sh
 uv run python icechunk_bench.py build && uv run python icechunk_bench.py bench
