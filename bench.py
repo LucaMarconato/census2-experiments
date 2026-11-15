@@ -2,8 +2,8 @@
 """Run the prototype benchmark matrix (census2-sdk/tools/bench) on each store set.
 
 Per set: build its catalog (build_catalog.py, results/catalogs/<set>/), load the backend env,
-run bench.matrix: each query x workers x repeat in a new process (no cache carries over).
-Queries (upstream calls them shapes): single (get_anndata of one dataset), cell_type (get_anndata of the cell type in ~15% of
+run bench.matrix: each shape x workers x repeat in a new process (no cache carries over).
+Shapes: single (get_anndata of one dataset), cell_type (get_anndata of the cell type in ~15% of
 datasets), open (open every store), corpus_obs (read all obs), corpus_x (read all X, keep nothing).
 Each record: catalog and query seconds, stores, cells, requests, MB read, peak RSS, status.
 Appends to results/bench.jsonl; table.py makes the table of medians.
@@ -72,7 +72,7 @@ def catalog(name: str, env: dict[str, str]) -> Path:
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--sets", default="local-all,local-small,emu-small,local-4GB")
-    p.add_argument("--queries", default="single,cell_type,open,corpus_obs,corpus_x")
+    p.add_argument("--shapes", default="single,cell_type,open,corpus_obs,corpus_x")
     p.add_argument("--workers", default="1,8,32")
     p.add_argument("--repeats", type=int, default=3)
     p.add_argument("--out", type=Path, default=HERE / "results/bench.jsonl")
@@ -86,7 +86,7 @@ def main() -> int:
         size = cat.stem.split("-")[1]
         subprocess.run(
             [sys.executable, "-m", "bench.matrix", "--catalogs", cat.parent, "--sizes", size,
-             "--shapes", a.queries, "--workers", a.workers, "--repeats", str(a.repeats),
+             "--shapes", a.shapes, "--workers", a.workers, "--repeats", str(a.repeats),
              "--where", name + a.suffix, "--out", a.out.resolve()],
             check=True, env=env, cwd=TOOLS,
         )  # fmt: skip

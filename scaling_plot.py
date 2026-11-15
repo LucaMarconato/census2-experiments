@@ -11,7 +11,7 @@ d = pd.read_json(f"results/scaling/{name}.jsonl", lines=True)
 d = d[(d.status == "ok") & (d.workers == 8)]
 t = d.pivot_table(index=["where", "size"], columns="shape", values="query_seconds", aggfunc="median")
 r = d.pivot_table(index=["where", "size"], columns="shape", values="requests", aggfunc="median")
-md = t.round(2).rename_axis(columns="query").reset_index().to_markdown(index=False) + "\n\nRequests\n\n" + r.rename_axis(columns="query").reset_index().to_markdown(index=False)
+md = t.round(2).reset_index().to_markdown(index=False) + "\n\nRequests\n\n" + r.reset_index().to_markdown(index=False)
 open(f"results/scaling/{name}.md", "w").write(md + "\n")
 print(md)
 
@@ -37,15 +37,15 @@ for v in (0.1, 1, 10, 100):
 out.append(f'<text x="{(W + L) / 2:.0f}" y="{H - 30}" text-anchor="middle">stores (real up to {REAL}, symlinked copies beyond)</text>')
 ly = 110
 series = [(w + sfx, sh, c, da) for w, sh, c, da in series]
-for where, query, color, dash in series:
-    if (where, query) not in [(w, s) for w in t.index.get_level_values(0) for s in t.columns]:
+for where, shape, color, dash in series:
+    if (where, shape) not in [(w, s) for w in t.index.get_level_values(0) for s in t.columns]:
         continue
-    pts = t.loc[where, query].dropna()
+    pts = t.loc[where, shape].dropna()
     path = " ".join(f"{X(n):.1f},{Y(max(v, ys[0])):.1f}" for n, v in pts.items())
     out.append(f'<polyline points="{path}" fill="none" stroke="{color}" stroke-width="4" stroke-dasharray="{dash}"/>')
     for n, v in pts.items():
         out.append(f'<circle cx="{X(n):.1f}" cy="{Y(max(v, ys[0])):.1f}" r="6" fill="{color}"/>')
-    label = f"{query}, {'local disk' if where.startswith('local') else 'floci S3'}"
+    label = f"{shape}, {'local disk' if where.startswith('local') else 'floci S3'}"
     out.append(f'<line x1="{L + 20}" y1="{ly}" x2="{L + 70}" y2="{ly}" stroke="{color}" stroke-width="4" stroke-dasharray="{dash}"/>')
     out.append(f'<text x="{L + 80}" y="{ly + 8}">{label}</text>')
     ly += 34

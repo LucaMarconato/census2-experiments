@@ -11,6 +11,6 @@ for ms in ${@:-10 50}; do
   python3 latency_proxy.py --listen 4567 --target 4566 --delay-ms $ms & P=$!
   sleep 1  # the proxy starts in the background: give it time to listen before the bench connects
   .venv/bin/python -W ignore icechunk_bench.py bench --where floci --endpoint http://127.0.0.1:4567 --label "+${ms}ms${LABEL_SUFFIX}" \
-    --queries open,count_cell_type,corpus_obs,single --workers 1,8 --repeats 3 --out ${OUT:-results/icechunk/bench-latency.jsonl}
+    --shapes open,count_cell_type,corpus_obs,single --workers 1,8 --repeats 3 --out ${OUT:-results/icechunk/bench-latency.jsonl}
   kill $P
 done

@@ -1,4 +1,4 @@
-| where         | query      |   workers |   stores |      cells |   seconds |   requests |       mb |   rss_mb |   runs |
+| where         | shape      |   workers |   stores |      cells |   seconds |   requests |       mb |   rss_mb |   runs |
 |:--------------|:-----------|----------:|---------:|-----------:|----------:|-----------:|---------:|---------:|-------:|
 | local-all-ext | single     |         1 |        1 |      3,799 |      0.28 |         77 |    16.80 |   880.60 |      3 |
 | local-all-ext | single     |         8 |        1 |      3,799 |      0.33 |         77 |    16.80 |   866.10 |      3 |

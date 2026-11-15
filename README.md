@@ -25,6 +25,8 @@ uv run python convert.py subsets/all.jsonl   # h5ad -> Census 2 Zarr in data/zar
 
 ## Benchmarks
 
+Terms: a *shape* is a benchmark query, as in the prototype's `bench` tool: `single` (one dataset), `cell_type` (one cell type across all stores), `open` (open every store), `corpus_obs` (all `obs`), `corpus_x` (all X). A *set* is `<backend>-<stores>`, e.g. `floci-4GB`.
+
 ```bash
 uv run python subset.py data/zarr --max-gib 4 --fill --from subsets/50GB.jsonl --out subsets/4GB.jsonl   # 4GB: 21 stores, 4 GiB of Zarr, the S3 / Icechunk set
 uv run python subset.py data/zarr --max-gib 0.117 --fill --max-store-mib 60 --from subsets/50GB.jsonl --out subsets/emu-small.jsonl
